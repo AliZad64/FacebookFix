@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from project.views import embed_controller
+from ninja import NinjaAPI
 
+
+api = NinjaAPI(
+    title="Facebook Fix Embed",
+    description="This API is used to fix the embed link of Facebook videos",
+    version="0.0.1",
+)
+
+api.add_router("", embed_controller)
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', api.urls),
 ]
