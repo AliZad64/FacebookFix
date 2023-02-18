@@ -14,6 +14,10 @@ embed_controller = Router(tags=["Embed Controller"])
 @embed_controller.get("", response={200: VideoOut, 400: MessageOut})
 def get_video(request, url: str = None):
     sanitized_url = sanitizing_url(url)
+    if "www" in sanitized_url:
+        sanitized_url = sanitized_url.replace("www", "mbasic", 1)
+    else:
+        sanitized_url = sanitized_url.replace("web", "mbasic", 1)
     response = requests.get(sanitized_url.replace("www", "mbasic"))
 
     if 'video_redirect' in response.text:
