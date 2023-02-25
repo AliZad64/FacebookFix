@@ -2,11 +2,16 @@
 <html>
 <head>
   <title>My Template</title>
+      {% if video %}
+        <meta property="og:video" content="{{ video }}" />
+        <meta property="og:video:secure_url" content="{{ video }}" />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content="640" />
+        <meta property="og:video:height" content="360" />
+      {% endif %}
 </head>
 <body>
   <h1>this video link</h1>
-  {% if video_url %}
-    <p>{{ video_url }}</p>
-  {% endif %}
+
 </body>
 </html>
