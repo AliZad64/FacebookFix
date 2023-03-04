@@ -9,20 +9,17 @@ from ninja import Router
 from config.utils import sanitizing_url
 from project.schemas.video_schema import VideoOut, MessageOut
 from django.utils.safestring import mark_safe
+from lxml import html
 
 embed_controller = Router(tags=["Embed Controller"])
 
 
-# main endpoint
-@embed_controller.get("", response={200: MessageOut, 400: MessageOut})
-# @embed_controller.get("/reel/{id}", response={200: VideoOut, 400: MessageOut})
-def get_video(request, url: str = None):
-    print(request.path_info)
-    print(request.get_full_path_info())
-    print(request.get_full_path())
 
+# main endpoint
+@embed_controller.get("")
+def get_video(request, url: str = None):
     ctx = {}
-    # url = "https://www.facebook.com/reel/" + id
+    meta = {}
     print(url)
     if "watch" or "reel" in url:
         sanitized_url = sanitizing_url(url)
@@ -35,8 +32,16 @@ def get_video(request, url: str = None):
 
         if 'video_redirect' in response.text:
             reel = re.search(r'href\=\"\/video\_redirect\/\?src\=(.*?)\"', response.text)
-            video = unquote(reel.group(0)).replace(";", "&")
+            video = unquote(reel.group(1)).replace(";", "&")
             ctx["video"] = mark_safe(video)
+            tree = html.fromstring(response.content)
+            for tag in tree.xpath('//meta'):
+                meta[tag.get('property')] = mark_safe(tag.get('content'))
+            # assign every meta tag to the context
+            for key, value in meta.items():
+                if key:
+                    ctx[key[3:]] = value
+
     else:
         # Send a GET request to the post URL and parse the HTML using BeautifulSoup
         response = requests.get(url)
