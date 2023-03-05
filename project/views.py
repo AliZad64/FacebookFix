@@ -27,7 +27,6 @@ def get_video(request, url: str = None):
             sanitized_url = sanitized_url.replace("www.", "mbasic.", 1)
         else:
             sanitized_url = sanitized_url.replace("web.", "mbasic.", 1)
-        print(sanitized_url)
         response = requests.get(sanitized_url)
 
         if 'video_redirect' in response.text:
@@ -39,7 +38,7 @@ def get_video(request, url: str = None):
                 meta[tag.get('property')] = mark_safe(tag.get('content'))
             # assign every meta tag to the context
             for key, value in meta.items():
-                if key:
+                if key and key != 'og:image':
                     ctx[key[3:]] = value
 
     else:
