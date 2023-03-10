@@ -4,13 +4,14 @@ from urllib.parse import unquote
 from django.shortcuts import render
 import requests
 import re
-import requests
+import logging
 from bs4 import BeautifulSoup
 from ninja import Router
 from config.utils import sanitizing_url, embed_video
 from project.schemas.video_schema import VideoOut, MessageOut
 from django.utils.safestring import mark_safe
 from lxml import html
+
 
 FACEBOOK_URL = "https://mbasic.facebook.com/watch/?v="
 embed_controller = Router(tags=["Embed Controller"])
@@ -20,7 +21,9 @@ embed_controller = Router(tags=["Embed Controller"])
 @embed_controller.get("/watch")
 def get_video(request, v: str = None):
     url = FACEBOOK_URL + v
+    logging.info(url)
     response = requests.get(url)
+    logging.info(response)
     return render(request, "base.html", embed_video(response))
 
 
