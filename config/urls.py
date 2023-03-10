@@ -28,5 +28,5 @@ api = NinjaAPI(
 api.add_router("", embed_controller)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', api.urls),
+    path('', api.urls),
 ]
