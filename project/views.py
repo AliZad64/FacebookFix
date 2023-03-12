@@ -74,3 +74,8 @@ def get_image(request, fbid: str = None):
     image_url = soup.find('meta', property='og:image')['content']
     ctx["image_url"] = image_url
     return render(request, "base.html", ctx)
+
+
+@embed_controller.get("test", response={200: VideoOut})
+def test_func(request):
+    return 200, {"video_url": "test"}
