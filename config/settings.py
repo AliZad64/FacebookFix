@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c+56)%a9etjgw@&+_9380p8z2y6fhyk*qo^oanj)t54&f!wrxy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fix-facebook.azurewebsites.net']
 
 
 # Application definition
