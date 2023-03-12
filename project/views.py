@@ -21,8 +21,10 @@ embed_controller = Router(tags=["Embed Controller"])
 @embed_controller.get("/watch")
 def get_video(request, v: str = None):
     url = FACEBOOK_URL + v
+    logging.info("URL: ")
     logging.info(url)
     response = requests.get(url)
+    logging.info("response: ")
     logging.info(response)
     return render(request, "base.html", embed_video(response))
 
@@ -34,6 +36,7 @@ def get_video_by_id(request, link_id: str, v: str = None):
         sanitized_url = FACEBOOK_URL + v
     else:
         sanitized_url = sanitizing_url(f"https://mbasic.facebook.com/watch/{link_id}")
+    print(sanitized_url)
     response = requests.get(sanitized_url)
     return render(request, "base.html", embed_video(response))
 
