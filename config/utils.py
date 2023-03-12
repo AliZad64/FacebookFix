@@ -3,7 +3,7 @@ import re
 from django.utils.safestring import mark_safe
 from lxml import html
 
-facebook_url = "https://www.facebook.com/watch/"
+facebook_url = "https://mbasic.facebook.com/watch/"
 
 
 def get_url_id(url: str) -> str:
