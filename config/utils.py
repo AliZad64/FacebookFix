@@ -37,8 +37,7 @@ def embed_video(response) -> dict:
         # assign every meta tag to the context
     for key, value in meta.items():
         if key and key != 'og:image':
-            print(response.url)
             ctx[key[3:]] = value
-    if ctx["url"] is None:
+    if "url" not in ctx:
         ctx["url"] = response.url
     return ctx

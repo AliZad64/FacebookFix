@@ -36,7 +36,6 @@ def get_video_by_id(request, link_id: str, v: str = None):
         sanitized_url = FACEBOOK_URL + v
     else:
         sanitized_url = sanitizing_url(f"https://mbasic.facebook.com/watch/{link_id}")
-    print(sanitized_url)
     response = requests.get(sanitized_url)
     return render(request, "base.html", embed_video(response))
 
@@ -78,8 +77,11 @@ def get_image(request, fbid: str = None):
 
 @embed_controller.get("test", response={200: VideoOut})
 def test_func(request):
+    print("heya")
     return 200, {"video_url": "test"}
 
 @embed_controller.get("page")
 def test_page(request):
-    return render(request, "test.html")
+    ctx = {}
+    ctx["url"] = "www.facebook.com"
+    return render(request, "test.html", ctx)
