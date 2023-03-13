@@ -79,3 +79,7 @@ def get_image(request, fbid: str = None):
 @embed_controller.get("test", response={200: VideoOut})
 def test_func(request):
     return 200, {"video_url": "test"}
+
+@embed_controller.get("page")
+def test_page(request):
+    return render(request, "test.html")
