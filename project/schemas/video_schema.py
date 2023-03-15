@@ -7,3 +7,4 @@ class MessageOut(Schema):
 
 class VideoOut(Schema):
     video_url: str
+    user_agent: str

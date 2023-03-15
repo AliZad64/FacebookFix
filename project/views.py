@@ -27,7 +27,7 @@ headers = {
     "sec-fetch-mode": "navigate",
     "upgrade-insecure-requests": "1",
     "referer": "https://www.facebook.com/",
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     "viewport-width": "1280",
 }
 # ----------------- video routes ----------------- #
@@ -117,4 +117,6 @@ def http_response(request: HttpRequest, response: HttpResponse):
 def test_facebook(request):
     url = FACEBOOK_URL + '1774563489582348'
     response = requests.get(url, headers=headers)
-    return 200 , {"video_url": response.text}
+    user_agent = request.headers.get("User-Agent")
+    
+    return 200 , {"video_url": response.text, "user_agent": user_agent}
