@@ -111,7 +111,7 @@ def http_response(request: HttpRequest, response: HttpResponse):
     response.set_cookie("cookie", "delicious")
     # Set a header.
     response["X-Cookiemonster"] = "blue"
-    return response
+    return render(request, "test.html", {})
 
 @embed_controller.get("test_facebook", response={200: VideoOut})
 def test_facebook(request):
@@ -120,3 +120,10 @@ def test_facebook(request):
     user_agent = request.headers.get("User-Agent")
     
     return 200 , {"video_url": response.text, "user_agent": user_agent}
+
+@embed_controller.get("test_instagram")
+def test_instagram(request):
+    url = "https://www.instagram.com/p/CpJeHYcLCVP/embed/captioned/"
+    response = requests.get(url)
+    return 200 , {"video_url": response.text}
+    
