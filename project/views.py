@@ -1,5 +1,7 @@
 from typing import Optional, Any
 from urllib.parse import unquote
+import logging
+from django.http import HttpRequest, HttpResponse
 
 from django.shortcuts import render
 import requests
@@ -12,6 +14,7 @@ from project.schemas.video_schema import VideoOut, MessageOut
 from django.utils.safestring import mark_safe
 from lxml import html
 
+logger = logging.getLogger(__name__)
 
 FACEBOOK_URL = "https://mbasic.facebook.com/watch/?v="
 embed_controller = Router(tags=["Embed Controller"])
@@ -30,10 +33,14 @@ headers = {
 # ----------------- video routes ----------------- #
 @embed_controller.get("/watch")
 def get_video(request, v: str = None):
+    print(request.headers.get("User-Agent"))
     url = FACEBOOK_URL + v
     logging.info("URL: ")
     logging.info(url)
     response = requests.get(url, headers=headers)
+    logger.info(response)
+    logger.info(response.content)
+    logger.info("hey whats up")
     logging.info("response: ")
     logging.info(response)
     return render(request, "base.html", embed_video(response))
@@ -92,6 +99,22 @@ def test_func(request):
 
 @embed_controller.get("page")
 def test_page(request):
+    response = requests.get("https://www.instagram.com/p/CnonizJpAoV/embed/captioned/")
+    
     ctx = {}
-    ctx["url"] = "www.facebook.com"
+    ctx["url"] = response.text
     return render(request, "test.html", ctx)
+
+@embed_controller.get("test2")
+def http_response(request: HttpRequest, response: HttpResponse):
+    print(request.headers.get("User-Agent"))
+    response.set_cookie("cookie", "delicious")
+    # Set a header.
+    response["X-Cookiemonster"] = "blue"
+    return response
+
+@embed_controller.get("test_facebook", response={200: VideoOut})
+def test_facebook(request):
+    url = FACEBOOK_URL + '1774563489582348'
+    response = requests.get(url, headers=headers)
+    return 200 , {"video_url": response.text}
