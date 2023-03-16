@@ -71,7 +71,7 @@ def get_image(request, user: str, a_id: str, link_id: str):
     meta = {}
     url = f"https://www.facebook.com/{user}/photos/{a_id}/{link_id}"
     # Send a GET request to the post URL and parse the HTML using BeautifulSoup
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
     tree = html.fromstring(response.content)
     for tag in tree.xpath('//meta'):
             meta[tag.get('property')] = mark_safe(tag.get('content'))
