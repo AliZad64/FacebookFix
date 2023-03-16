@@ -126,4 +126,9 @@ def test_instagram(request):
     url = "https://www.instagram.com/p/CpJeHYcLCVP/embed/captioned/"
     response = requests.get(url)
     return 200 , {"video_url": response.text}
-    
+
+@embed_controller.get("test_normal")
+def test_normal(request):
+    url = "https://www.facebook.com/watch/?v=1774563489582348"
+    response = requests.get(url)
+    return 200 , {"video_url": response.text}
