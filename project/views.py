@@ -13,10 +13,10 @@ from config.utils import sanitizing_url, embed_video
 from project.schemas.video_schema import VideoOut, MessageOut
 from django.utils.safestring import mark_safe
 from lxml import html
-
+from yt_dlp import YoutubeDL
 logger = logging.getLogger(__name__)
 
-FACEBOOK_URL = "https://mbasic.facebook.com/watch/?v="
+FACEBOOK_URL = "https://www.facebook.com/watch/?v="
 embed_controller = Router(tags=["Embed Controller"])
 
 headers = {
@@ -54,11 +54,16 @@ def get_video(request, v: str = None):
 @embed_controller.get("reel/{link_id}")
 def get_video_by_id(request, link_id: str, v: str = None):
     if v:
-        sanitized_url = FACEBOOK_URL + v
+        url = FACEBOOK_URL + v
     else:
-        sanitized_url = sanitizing_url(f"https://mbasic.facebook.com/watch/{link_id}")
-    response = requests.get(sanitized_url)
-    return render(request, "base.html", embed_video(response))
+        url = f"https://www.facebook.com/watch/{link_id}"
+    with YoutubeDL() as ydl:
+        result = ydl.extract_info(url, download=False)
+        for format in result["formats"]:
+            if format["format_id"] == "hd":
+                result["video"] = mark_safe(format["url"])
+    result["url"] = url
+    return render(request, "base.html", result)
 
 
 @embed_controller.get("{user}/video/{link_id}")
