@@ -13,29 +13,26 @@
     {% endif %}
     {% if image %}
     <meta name="twitter:image" content="{{ image }}" />
+    <meta property="og:image" content="{{ image }}" />
     {% endif %}
 
     {% if video %}
-    <meta name="twitter:player:width" content="640" />
-    <meta name="twitter:player:height" content="360" />
+    <meta name="twitter:player:width" content="{{ width }}" />
+    <meta name="twitter:player:height" content="{{ height }}" />
     <meta name="twitter:player:stream" content="{{ video }}" />
     <meta name="twitter:player:stream:content_type" content="video/mp4" />
     {% endif %}
 
-    <meta property="og:site_name" content="InstaFix">
+    <meta property="og:site_name" content="FacebookFix">
     <meta property="og:url" content="{{ url }}" />
     <meta property="og:description" content="{{ description }}" />
-
-    {% if image %}
-    <meta property="og:image" content="{{ image }}" />
-    {% endif %}
 
     {% if video %}
     <meta property="og:video" content="{{ video }}" />
     <meta property="og:video:secure_url" content="{{ video }}" />
     <meta property="og:video:type" content="video/mp4" />
-    <meta property="og:video:width" content="640" />
-    <meta property="og:video:height" content="360" />
+    <meta property="og:video:width" content="{{ width }}" />
+    <meta property="og:video:height" content="{{ height }}" />
     {% endif %}
 
     <meta name="description" content="{{ description }}" />
