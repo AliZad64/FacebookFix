@@ -68,8 +68,9 @@ def get_video_by_id(request, link_id: str, v: str = None):
 
 
 @embed_controller.get("{user}/video/{link_id}")
+@embed_controller.get("{user}/videos/{link_id}")
 def get_video_by_user(request, user: str, link_id: str):
-    url = f"https://www.facebook.com/{user}/videos/{link_id}"
+    url = f"https://www.facebook.com" + request.path
     with YoutubeDL() as ydl:
         result = ydl.extract_info(url, download=False)
         for format in result["formats"]:
