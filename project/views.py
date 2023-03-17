@@ -124,7 +124,7 @@ def http_response(request: HttpRequest, response: HttpResponse):
 @embed_controller.get("test_facebook", response={200: VideoOut})
 def test_facebook(request):
     url = FACEBOOK_URL + '1774563489582348'
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, allow_redirects=False)
     user_agent = request.headers.get("User-Agent")
     
     return 200 , {"video_url": response.text, "user_agent": user_agent}
