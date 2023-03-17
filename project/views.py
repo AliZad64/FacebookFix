@@ -63,6 +63,7 @@ def get_video_by_id(request, link_id: str, v: str = None):
             if format["format_id"] == "hd":
                 result["video"] = mark_safe(format["url"])
     result["url"] = url
+    result["player"] = "player"
     return render(request, "base.html", result)
 
 
@@ -75,6 +76,7 @@ def get_video_by_user(request, user: str, link_id: str):
             if format["format_id"] == "hd":
                 result["video"] = mark_safe(format["url"])
     result["url"] = url
+    result["player"] = "player"
     return render(request, "base.html", result)
 
 
