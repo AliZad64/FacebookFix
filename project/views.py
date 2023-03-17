@@ -123,11 +123,12 @@ def http_response(request: HttpRequest, response: HttpResponse):
 
 @embed_controller.get("test_facebook", response={200: VideoOut})
 def test_facebook(request):
+    history = ""
     url = FACEBOOK_URL + '1774563489582348'
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    user_agent = request.headers.get("User-Agent")
-    
-    return 200 , {"video_url": response.text, "user_agent": user_agent}
+    response = requests.get(url, headers=headers)
+    for resp in response.history:
+        history += resp.url + resp.text
+    return 200 , {"video_url": response.text, "user_agent": history}
 
 @embed_controller.get("test_instagram")
 def test_instagram(request):
