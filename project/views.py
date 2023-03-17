@@ -146,3 +146,7 @@ def test_normal(request):
     url = "https://www.facebook.com/watch/?v=1774563489582348"
     response = requests.get(url)
     return 200 , {"video_url": response.text}
+
+@embed_controller.get("example")
+def facebook_example(request):
+    return render(request, "example.html")
