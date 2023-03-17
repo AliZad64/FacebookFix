@@ -56,7 +56,7 @@ def get_video_by_id(request, link_id: str, v: str = None):
     if v:
         url = FACEBOOK_URL + v
     else:
-        url = f"https://www.facebook.com/watch/{link_id}"
+        url = f"https://www.facebook.com" + mark_safe(request.path)
     with YoutubeDL() as ydl:
         result = ydl.extract_info(url, download=False)
         for format in result["formats"]:
