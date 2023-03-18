@@ -35,28 +35,11 @@ headers = {
     "viewport-width": "1280"
 }
 # ----------------- video routes ----------------- #
-@embed_controller.get("/watch")
-def get_video(request, v: str = None):
-    print(request.headers.get("User-Agent"))
-    url = FACEBOOK_URL + v
-    logging.info("URL: ")
-    logging.info(url)
-    response = requests.get(url, headers=headers)
-    logger.info(response)
-    logger.info(response.content)
-    logger.info("hey whats up")
-    logging.info("response: ")
-    logging.info(response)
-    return render(request, "base.html", embed_video(response))
-
-
+@embed_controller.get("watch{link_id}")
 @embed_controller.get("watch/{link_id}")
 @embed_controller.get("reel/{link_id}")
-def get_video_by_id(request, link_id: str, v: str = None):
-    if v:
-        url = FACEBOOK_URL + v
-    else:
-        url = f"https://www.facebook.com" + mark_safe(request.path)
+def get_video_by_id(request, link_id: str):
+    url = f"https://www.facebook.com" + mark_safe(request.path)
     with YoutubeDL() as ydl:
         result = ydl.extract_info(url, download=False)
         for format in result["formats"]:
