@@ -87,7 +87,9 @@ def get_video_by_id(request, link_id: str,  v: str = None):
 
 
 @embed_controller.get("{user}/video/{link_id}")
+@embed_controller.get("{user}/video/{link_id}/")
 @embed_controller.get("{user}/videos/{link_id}")
+@embed_controller.get("{user}/videos/{link_id}/")
 def get_video_by_user(request, user: str, link_id: str):
     url = FACEBOOK_URL + request.path
     with YoutubeDL() as ydl:
