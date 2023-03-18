@@ -67,6 +67,24 @@ def get_video_by_id(request, link_id: str):
     result["card"] = "player"
     return render(request, "base.html", result)
 
+@embed_controller.get("watch/{link_id}")
+@embed_controller.get("reel/{link_id}")
+def get_video_by_id(request, link_id: str,  v: str = None):
+    print(request.path)
+    if v:
+        url = f"https://www.facebook.com/watch?v={link_id}"
+    else:
+        url = f"https://www.facebook.com" + mark_safe(request.path)
+    with YoutubeDL() as ydl:
+        result = ydl.extract_info(url, download=False)
+        for format in result["formats"]:
+            if format["format_id"] == "hd":
+                result["video"] = mark_safe(format["url"])
+    result["url"] = url
+    result["card"] = "player"
+    return render(request, "base.html", result)
+
+
 
 @embed_controller.get("{user}/video/{link_id}")
 @embed_controller.get("{user}/videos/{link_id}")
