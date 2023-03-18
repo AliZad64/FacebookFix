@@ -37,6 +37,7 @@ headers = {
 # ----------------- video routes ----------------- #
 
 @embed_controller.get("watch/")
+@embed_controller.get("watch")
 def get_video_by_query_param(request, v: str):
     url = f"https://www.facebook.com/watch?v={v}"
     with YoutubeDL() as ydl:
