@@ -35,7 +35,6 @@ headers = {
     "viewport-width": "1280"
 }
 # ----------------- video routes ----------------- #
-
 @embed_controller.get("watch/")
 @embed_controller.get("watch")
 def get_video_by_query_param(request, v: str):
