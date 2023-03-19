@@ -1,19 +1,11 @@
-from typing import Optional, Any
-from urllib.parse import unquote
 import logging
-from django.http import HttpRequest, HttpResponse
-
-from django.shortcuts import render
 import requests
-import re
-import logging
+from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ninja import Router
-from config.utils import sanitizing_url, embed_video
-from project.schemas.video_schema import VideoOut, MessageOut
 from django.utils.safestring import mark_safe
 from lxml import html
-from yt_dlp import YoutubeDL
+from config.utils.video import embed_video
 
 logger = logging.getLogger(__name__)
 
@@ -43,14 +35,7 @@ headers = {
 @embed_controller.get("watch")
 def get_video_by_query_param(request, v: str):
     url = FACEBOOK_QUERY_URL + v
-    with YoutubeDL() as ydl:
-        result = ydl.extract_info(url, download=False)
-        for format in result["formats"]:
-            if format["format_id"] == "hd":
-                result["video"] = mark_safe(format["url"])
-    result["url"] = url
-    result["card"] = "player"
-    return render(request, "base.html", result)
+    return render(request, "base.html", embed_video(url))
 
 @embed_controller.get("watch/{link_id}")
 @embed_controller.get("reel/{link_id}")
@@ -60,14 +45,7 @@ def get_video_by_id(request, link_id: str,  v: str = None):
         url = f"https://www.facebook.com/watch?v={link_id}"
     else:
         url = f"https://www.facebook.com" + mark_safe(request.path)
-    with YoutubeDL() as ydl:
-        result = ydl.extract_info(url, download=False)
-        for format in result["formats"]:
-            if format["format_id"] == "hd":
-                result["video"] = mark_safe(format["url"])
-    result["url"] = url
-    result["card"] = "player"
-    return render(request, "base.html", result)
+    return render(request, "base.html", embed_video(url))
 
 
 
@@ -76,14 +54,7 @@ def get_video_by_id(request, link_id: str,  v: str = None):
 @embed_controller.get("reel/{link_id}")
 def get_video_by_id(request, link_id: str):
     url = FACEBOOK_URL + mark_safe(request.path)
-    with YoutubeDL() as ydl:
-        result = ydl.extract_info(url, download=False)
-        for format in result["formats"]:
-            if format["format_id"] == "hd":
-                result["video"] = mark_safe(format["url"])
-    result["url"] = url
-    result["card"] = "player"
-    return render(request, "base.html", result)
+    return render(request, "base.html", embed_video(url))
 
 @embed_controller.get("watch/{link_id}")
 @embed_controller.get("reel/{link_id}")
@@ -93,14 +64,7 @@ def get_video_by_id(request, link_id: str,  v: str = None):
         url = f"https://www.facebook.com/watch?v={link_id}"
     else:
         url = f"https://www.facebook.com" + mark_safe(request.path)
-    with YoutubeDL() as ydl:
-        result = ydl.extract_info(url, download=False)
-        for format in result["formats"]:
-            if format["format_id"] == "hd":
-                result["video"] = mark_safe(format["url"])
-    result["url"] = url
-    result["card"] = "player"
-    return render(request, "base.html", result)
+    return render(request, "base.html", embed_video(url))
 
 
 
@@ -110,14 +74,7 @@ def get_video_by_id(request, link_id: str,  v: str = None):
 @embed_controller.get("{user}/videos/{link_id}/")
 def get_video_by_user(request, user: str, link_id: str):
     url = FACEBOOK_URL + request.path
-    with YoutubeDL() as ydl:
-        result = ydl.extract_info(url, download=False)
-        for format in result["formats"]:
-            if format["format_id"] == "hd":
-                result["video"] = mark_safe(format["url"])
-    result["url"] = url
-    result["card"] = "player"
-    return render(request, "base.html", result)
+    return render(request, "base.html", embed_video(url))
 
 
 # ----------------- image routes ----------------- #
@@ -151,55 +108,3 @@ def get_image(request, fbid: str = None):
     print(image_url)
     ctx["image_url"] = image_url
     return render(request, "base.html", ctx)
-
-
-@embed_controller.get("test", response={200: VideoOut})
-def test_func(request):
-    print("heya")
-    return 200, {"video_url": "test"}
-
-
-@embed_controller.get("page")
-def test_page(request):
-    response = requests.get("https://www.instagram.com/p/CnonizJpAoV/embed/captioned/")
-
-    ctx = {"url": response.text}
-    return render(request, "test.html", ctx)
-
-
-@embed_controller.get("test2")
-def http_response(request: HttpRequest, response: HttpResponse):
-    print(request.headers.get("User-Agent"))
-    response.set_cookie("cookie", "delicious")
-    # Set a header.
-    response["X-Cookiemonster"] = "blue"
-    return render(request, "test.html", {})
-
-
-@embed_controller.get("test_facebook", response={200: VideoOut})
-def test_facebook(request):
-    history = ""
-    url = FACEBOOK_URL + '1774563489582348'
-    response = requests.get(url, headers=headers)
-    for resp in response.history:
-        history += resp.url + resp.text
-    return 200, {"video_url": response.text, "user_agent": history}
-
-
-@embed_controller.get("test_instagram")
-def test_instagram(request):
-    url = "https://www.instagram.com/p/CpJeHYcLCVP/embed/captioned/"
-    response = requests.get(url)
-    return 200, {"video_url": response.text}
-
-
-@embed_controller.get("test_normal")
-def test_normal(request):
-    url = "https://www.facebook.com/watch/?v=1774563489582348"
-    response = requests.get(url)
-    return 200, {"video_url": response.text}
-
-
-@embed_controller.get("example")
-def facebook_example(request):
-    return render(request, "example.html")
