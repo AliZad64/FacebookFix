@@ -2,6 +2,7 @@ from django.utils.safestring import mark_safe
 from yt_dlp import YoutubeDL
 
 
+
 def embed_video(url: str) -> dict:
     try:
         with YoutubeDL() as ydl:
@@ -11,6 +12,22 @@ def embed_video(url: str) -> dict:
                     result["video"] = mark_safe(video_format["url"])
         result["url"] = url
         result["card"] = "player"
+    except:
+        result = {"url": url}
+    return result
+
+
+def embed_reel(url: str) -> dict:
+    try:
+        with YoutubeDL() as ydl:
+            result = ydl.extract_info(url, download=False)
+            for video_format in result["formats"]:
+                if video_format["format_id"] == "sd":
+                    result["video"] = mark_safe(video_format["url"])
+        result["url"] = url
+        result["card"] = "player"
+        result["width"] = "688"
+        result["height"] = "480"
     except:
         result = {"url": url}
     return result
