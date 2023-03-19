@@ -1,6 +1,6 @@
 # FacebookFix
 
-FacebookFix serves fixed Facebook video embeds. Inspired by [ddinstagram.com](https://github.com/Wikidepia/InstaFix) and [fxtwitter.com](https://github.com/robinuniverse/TwitFix).
+FacebookFix serves fixed Facebook video embeds on **Discord**. Inspired by [ddinstagram.com](https://github.com/Wikidepia/InstaFix) and [fxtwitter.com](https://github.com/robinuniverse/TwitFix).
 
 ## How to use
 
@@ -17,3 +17,4 @@ You could open an [issue](https://github.com/AliZad64/FacebookFix/issues).
 - [ ] Implement Caching.
 - [ ] Implement CDN.
 - [ ] Try Facebook GraphQL API
+- [ ] Find if there is solution to embed more than 5min+ videos
