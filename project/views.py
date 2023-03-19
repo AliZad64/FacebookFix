@@ -43,10 +43,7 @@ def get_video_by_query_param(request, v: str):
 @embed_controller.get("reel/{link_id}")
 def get_video_by_id(request, link_id: str):
     url = FACEBOOK_URL + mark_safe(request.path)
-    if "reel" in request.path:
-        result = embed_reel(url)
-    else:
-        result = embed_video(url)
+    result = embed_reel(url) if "reel" in request.path else embed_video(url)
     return render(request, "base.html", result)
 
 @embed_controller.get("{user}/video/{link_id}")
@@ -61,24 +58,20 @@ def get_video_by_user(request, user: str, link_id: str):
 # ----------------- image routes ----------------- #
 @embed_controller.get("{user}/photos/{a_id}/{link_id}")
 def get_image(request, user: str, a_id: str, link_id: str):
-    ctx = {}
-    meta = {}
     url = f"https://www.facebook.com/{user}/photos/{a_id}/{link_id}"
     # Send a GET request to the post URL and parse the HTML using BeautifulSoup
     response = requests.get(url, headers=headers)
     tree = html.fromstring(response.content)
-    for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = mark_safe(tag.get('content'))
-    # assign every meta tag to the context
-    for key, value in meta.items():
-        if key:
-            ctx[key[3:]] = value
+    meta = {
+        tag.get('property'): mark_safe(tag.get('content'))
+        for tag in tree.xpath('//meta')
+    }
+    ctx = {key[3:]: value for key, value in meta.items() if key}
     return render(request, "base.html", ctx)
 
 
 @embed_controller.get("/photo")
 def get_image(request, fbid: str = None):
-    ctx = {}
     url = f"https://www.facebook.com/photo.php?fbid={fbid}"
     # Send a GET request to the post URL and parse the HTML using BeautifulSoup
     response = requests.get(url)
@@ -87,5 +80,5 @@ def get_image(request, fbid: str = None):
     # Extract the image URL from the meta tag with property="og:image"
     image_url = soup.find('meta', property='og:image')['content']
     print(image_url)
-    ctx["image_url"] = image_url
+    ctx = {"image_url": image_url}
     return render(request, "base.html", ctx)
