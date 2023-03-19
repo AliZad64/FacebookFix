@@ -4,7 +4,7 @@ FacebookFix serves fixed Facebook video embeds on **Discord**. Inspired by [ddin
 
 ## How to use
 
-Replace `facebook.com` with `fix-facebook.azurewebsite.net` to show Facebook embeds.
+Replace `facebook.com` with `vxfacebook.live` to show Facebook embeds.
 
 ## Report a bug
 
@@ -16,5 +16,5 @@ You could open an [issue](https://github.com/AliZad64/FacebookFix/issues).
 - [ ] Fix image embed.
 - [ ] Implement Caching.
 - [ ] Implement CDN.
-- [ ] Try Facebook GraphQL API
+- [ ] Try Facebook API
 - [ ] Find if there is solution to embed more than 5min+ videos
