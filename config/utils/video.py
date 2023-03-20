@@ -22,10 +22,12 @@ def embed_reel(url: str) -> dict:
         with YoutubeDL() as ydl:
             result = ydl.extract_info(url, download=False)
             for video_format in result["formats"]:
-                if video_format["format_id"] == "sd":
+                if video_format["format_id"] == "hd":
                     result["video"] = mark_safe(video_format["url"])
         result["url"] = url
         result["card"] = "player"
+        result["width"] = "640"
+        result["height"] = "360"
     except:
         result = {"url": url}
     return result
