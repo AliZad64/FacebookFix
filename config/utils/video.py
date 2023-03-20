@@ -26,8 +26,6 @@ def embed_reel(url: str) -> dict:
                     result["video"] = mark_safe(video_format["url"])
         result["url"] = url
         result["card"] = "player"
-        result["width"] = "688"
-        result["height"] = "480"
     except:
         result = {"url": url}
     return result
