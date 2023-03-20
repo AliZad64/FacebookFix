@@ -12,7 +12,7 @@ You could open an [issue](https://github.com/AliZad64/FacebookFix/issues).
 
 ## TODO
 
-- [ ] Fix reel embed.
+- [x] Fix reel embed.
 - [ ] Fix image embed.
 - [ ] Implement Caching.
 - [ ] Implement CDN.
