@@ -11,21 +11,21 @@ from config.utils.consts import FACEBOOK_URL, FACEBOOK_QUERY_URL, headers
 logger = logging.getLogger(__name__)
 
 
-embed_controller = Router(tags=["Embed Controller"])
+api = Router(tags=["Embed Controller"])
 
 
 # ----------------- video routes ----------------- #
-@embed_controller.get("watch/")
-@embed_controller.get("watch")
+@api.get("watch/")
+@api.get("watch")
 def get_video_by_query_param(request, v: str):
     url = FACEBOOK_QUERY_URL + v
     return render(request, "base.html", embed_video(url))
 
 
-@embed_controller.get("watch/{link_id}")
-@embed_controller.get("watch/{link_id}/")
-@embed_controller.get("reel/{link_id}")
-@embed_controller.get("reel/{link_id}/")
+@api.get("watch/{link_id}")
+@api.get("watch/{link_id}/")
+@api.get("reel/{link_id}")
+@api.get("reel/{link_id}/")
 def get_video_by_id(request, link_id: str):
     url = FACEBOOK_URL + mark_safe(request.path)
     result = embed_video(url)
@@ -35,17 +35,17 @@ def get_video_by_id(request, link_id: str):
     return render(request, "base.html", result)
 
 
-@embed_controller.get("{user}/video/{link_id}")
-@embed_controller.get("{user}/video/{link_id}/")
-@embed_controller.get("{user}/videos/{link_id}")
-@embed_controller.get("{user}/videos/{link_id}/")
+@api.get("{user}/video/{link_id}")
+@api.get("{user}/video/{link_id}/")
+@api.get("{user}/videos/{link_id}")
+@api.get("{user}/videos/{link_id}/")
 def get_video_by_user(request, user: str, link_id: str):
     url = FACEBOOK_URL + request.path
     return render(request, "base.html", embed_video(url))
 
 
 # ----------------- image routes ----------------- #
-@embed_controller.get("{user}/photos/{a_id}/{link_id}")
+@api.get("{user}/photos/{a_id}/{link_id}")
 def get_image(request, user: str, a_id: str, link_id: str):
     ctx = {}
     meta = {}
@@ -62,7 +62,7 @@ def get_image(request, user: str, a_id: str, link_id: str):
     return render(request, "base.html", ctx)
 
 
-@embed_controller.get("/photo")
+@api.get("/photo")
 def get_image(request, fbid: str = None):
     ctx = {}
     url = f"https://www.facebook.com/photo.php?fbid={fbid}"
