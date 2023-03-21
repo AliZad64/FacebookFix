@@ -1,4 +1,3 @@
-import logging
 import requests
 from django.shortcuts import render
 from bs4 import BeautifulSoup
@@ -8,7 +7,6 @@ from lxml import html
 from config.utils.video import embed_video
 from config.utils.consts import FACEBOOK_URL, FACEBOOK_QUERY_URL, headers
 
-logger = logging.getLogger(__name__)
 
 
 api = Router(tags=["Embed Controller"])
