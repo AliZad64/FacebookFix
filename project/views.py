@@ -64,6 +64,7 @@ def get_image(request, user: str, a_id: str, link_id: str):
 @image.get("/photo")
 def get_image(request, fbid: str = None):
     ctx = {}
+    meta = {}
     url = f"https://m.facebook.com/photo.php?fbid={fbid}"
     response = requests.get(url, headers=headers)
     tree = html.fromstring(response.content)
