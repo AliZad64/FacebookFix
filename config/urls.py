@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from project.views import embed_controller
+from project.views import video, image
 from ninja import NinjaAPI
 
 
@@ -25,7 +25,8 @@ api = NinjaAPI(
     version="0.1.0",
 )
 
-api.add_router("", embed_controller)
+api.add_router("", video)
+api.add_router("", image)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', api.urls),
