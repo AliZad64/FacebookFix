@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from ninja import Router
 from django.utils.safestring import mark_safe
-from config.utils.video import embed_video, embed_image
+from config.utils.embed import embed_video, embed_image
 from config.utils.consts import FACEBOOK_URL, FACEBOOK_QUERY_URL, headers
 
 
