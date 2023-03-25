@@ -22,7 +22,7 @@ from ninja import NinjaAPI
 api = NinjaAPI(
     title="Facebook Fix Embed",
     description="This API is used to fix the embed link of Facebook videos",
-    version="0.0.1",
+    version="0.1.0",
 )
 
 api.add_router("", embed_controller)
