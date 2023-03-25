@@ -1,6 +1,8 @@
+import requests
+from config.utils.consts import headers
 from django.utils.safestring import mark_safe
 from yt_dlp import YoutubeDL
-
+from lxml import html
 
 
 def embed_video(url: str) -> dict:
@@ -15,3 +17,17 @@ def embed_video(url: str) -> dict:
     except:
         result = {"url": url}
     return result
+
+
+def embed_image(url: str) -> dict:
+    meta = {}
+    ctx = {}
+    response = requests.get(url, headers=headers)
+    tree = html.fromstring(response.content)
+    for tag in tree.xpath('//meta'):
+        meta[tag.get('property')] = mark_safe(tag.get('content'))
+    # assign every meta tag to the context
+    for key, value in meta.items():
+        if key:
+            ctx[key[3:]] = value
+    return ctx

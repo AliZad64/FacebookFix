@@ -1,10 +1,7 @@
-import requests
 from django.shortcuts import render
-from bs4 import BeautifulSoup
 from ninja import Router
 from django.utils.safestring import mark_safe
-from lxml import html
-from config.utils.video import embed_video
+from config.utils.video import embed_video, embed_image
 from config.utils.consts import FACEBOOK_URL, FACEBOOK_QUERY_URL, headers
 
 
@@ -46,40 +43,11 @@ def get_video_by_user(request, user: str, link_id: str):
 # ----------------- image routes ----------------- #
 @image.get("{user}/photos/{a_id}/{link_id}")
 def get_image(request, user: str, a_id: str, link_id: str):
-    ctx = {}
-    meta = {}
     url = f"https://m.facebook.com/{user}/photos/{a_id}/{link_id}"
-    # Send a GET request to the post URL and parse the HTML using BeautifulSoup
-    response = requests.get(url, headers=headers)
-    tree = html.fromstring(response.content)
-    for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = mark_safe(tag.get('content'))
-    # assign every meta tag to the context
-    for key, value in meta.items():
-        if key:
-            ctx[key[3:]] = value
-    return render(request, "base.html", ctx)
+    return render(request, "base.html", embed_image(url))
 
 
 @image.get("/photo")
 def get_image(request, fbid: str = None):
-    ctx = {}
-    meta = {}
     url = f"https://m.facebook.com/photo.php?fbid={fbid}"
-    response = requests.get(url, headers=headers)
-    tree = html.fromstring(response.content)
-    for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = mark_safe(tag.get('content'))
-    # assign every meta tag to the context
-    for key, value in meta.items():
-        if key:
-            ctx[key[3:]] = value
-    return render(request, "base.html", ctx)
-    # # Send a GET request to the post URL and parse the HTML using BeautifulSoup
-    # response = requests.get(url)
-    # soup = BeautifulSoup(response.content, 'html.parser')
-
-    # # Extract the image URL from the meta tag with property="og:image"
-    # image_url = soup.find('meta', property='og:image')['content']
-    # print(image_url)
-    # ctx["image_url"] = image_url
+    return render(request, "base.html", embed_image(url))
