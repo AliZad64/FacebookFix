@@ -20,14 +20,10 @@ def embed_video(url: str) -> dict:
 
 
 def embed_image(url: str) -> dict:
-    meta = {}
-    ctx = {}
     response = requests.get(url, headers=headers)
     tree = html.fromstring(response.content)
-    for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = mark_safe(tag.get('content'))
-    # assign every meta tag to the context
-    for key, value in meta.items():
-        if key:
-            ctx[key[3:]] = value
-    return ctx
+    meta = {
+        tag.get('property'): mark_safe(tag.get('content'))
+        for tag in tree.xpath('//meta')
+    }
+    return {key[3:]: value for key, value in meta.items() if key}
