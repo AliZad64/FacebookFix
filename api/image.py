@@ -1,18 +1,21 @@
 from fastapi import APIRouter, Request
-import requests
+import httpx
 from lxml import html
 from html import unescape
 from utils.constants import headers
 from template import templates
 
 
-def embed_image(url: str) -> dict:
+async def embed_image(url: str) -> dict:
     meta = {}
     ctx = {}
-    response = requests.get(url, headers=headers)
-    tree = html.fromstring(response.content)
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, headers=headers)
+        response_content = response.content
+
+    tree = html.fromstring(response_content)
     for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = unescape(tag.get('content'))
+        meta[tag.get('property')] = tag.get('content')
     # assign every meta tag to the context
     for key, value in meta.items():
         if key:
@@ -26,13 +29,15 @@ image = APIRouter()
 
 
 @image.get("/{user}/photos/{a_id}/{link_id}")
-def get_image(request: Request, user: str, a_id: str, link_id: str):
+async def get_image(request: Request, user: str, a_id: str, link_id: str):
     url = f"https://m.facebook.com/{user}/photos/{a_id}/{link_id}"
-    return templates.TemplateResponse("base.html",{"request": request, "data": embed_image(url)})
+    data = await embed_image(url)
+    return templates.TemplateResponse("base.html", {"request": request, "data": data})
 
 
 @image.get("/photo")
 @image.get("/photo/")
-def get_image(request: Request, fbid: str = None):
+async def get_image(request: Request, fbid: str = None):
     url = f"https://m.facebook.com/photo/?fbid={fbid}"
-    return templates.TemplateResponse("base.html", {"request": request, "data": embed_image(url)})
+    data = await embed_image(url)
+    return templates.TemplateResponse("base.html", {"request": request, "data": data})
