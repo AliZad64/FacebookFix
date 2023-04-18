@@ -13,7 +13,7 @@ You could open an [issue](https://github.com/AliZad64/FacebookFix/issues).
 ## TODO
 
 - [x] Fix reel embed.
-- [ ] Fix image embed.
+- [x] Fix image embed.
 - [ ] Implement Caching.
 - [ ] Implement CDN.
 - [ ] Try Facebook API
