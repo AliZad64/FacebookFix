@@ -14,7 +14,7 @@ You could open an [issue](https://github.com/AliZad64/FacebookFix/issues).
 
 - [x] Fix reel embed.
 - [x] Fix image embed.
-- [ ] Implement Caching.
+- [x] Implement Caching.
 - [ ] Implement CDN.
 - [ ] Try Facebook API
 - [ ] Find if there is solution to embed more than 5min+ videos
