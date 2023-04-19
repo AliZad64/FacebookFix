@@ -7,6 +7,7 @@ from template import templates
 from api.app import app
 
 async def embed_video(url: str, id: str) -> dict:
+    ctx = {}
     redi = app.state.redis
     result = await redi.get(id)
     if result:
@@ -18,9 +19,16 @@ async def embed_video(url: str, id: str) -> dict:
                 result["video"] = (video_format["url"])
             elif video_format["format_id"] == "sd":
                 result["video"] = (video_format["url"])
-        result["url"] = url
-        result["card"] = "player"
-        await redi.set(id, json.dumps(result))
+        ctx = {
+            "title": result["title"],
+            "description": result["description"],
+            "width": result["width"],
+            "height": result["height"],
+            "url": url,
+            "card": "player",
+            "video": result["video"],
+        }
+        await redi.set(id, json.dumps(ctx))
     return result
 
 
