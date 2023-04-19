@@ -1,10 +1,16 @@
 import asyncio
+import json
 from fastapi import  APIRouter, Request
 from yt_dlp import YoutubeDL
 from utils.constants import FACEBOOK_URL, FACEBOOK_QUERY_URL
 from template import templates
+from api.app import app
 
-async def embed_video(url: str) -> dict:
+async def embed_video(url: str, id: str) -> dict:
+    redi = app.state.redis
+    result = await redi.get(id)
+    if result:
+        return json.loads(result)
     with YoutubeDL() as ydl:
         result = await asyncio.to_thread(ydl.extract_info, url, False)
         for video_format in result["formats"]:
@@ -14,6 +20,7 @@ async def embed_video(url: str) -> dict:
                 result["video"] = (video_format["url"])
         result["url"] = url
         result["card"] = "player"
+        await redi.set(id, json.dumps(result))
     return result
 
 
@@ -24,7 +31,7 @@ video = APIRouter()
 @video.get("/watch")
 async def get_video_by_query_param(request: Request, v: str):
     url = FACEBOOK_QUERY_URL + v
-    data = await embed_video(url)
+    data = await embed_video(url, v)
     return templates.TemplateResponse("base.html", {"request": request, "data": data})
 
 
@@ -32,7 +39,7 @@ async def get_video_by_query_param(request: Request, v: str):
 @video.get("/reel/{link_id}")
 async def get_video_by_id(request: Request, link_id: str):
     url = FACEBOOK_URL + request.url.path
-    result = await embed_video(url)
+    result = await embed_video(url, link_id)
     if "reel" in request.url.path:
         result["width"] = "640"
         result["height"] = "360"
@@ -43,5 +50,5 @@ async def get_video_by_id(request: Request, link_id: str):
 @video.get("/{user}/videos/{link_id}")
 async def get_video_by_user(request: Request, user: str, link_id: str):
     url = FACEBOOK_URL + request.url.path
-    data = await embed_video(url)
+    data = await embed_video(url, link_id)
     return templates.TemplateResponse("base.html", {"request": request, "data": data})
