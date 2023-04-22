@@ -15,9 +15,7 @@ async def embed_video(url: str, id: str) -> dict:
     with YoutubeDL() as ydl:
         result = await asyncio.to_thread(ydl.extract_info, url, False)
         for video_format in result["formats"]:
-            if video_format["format_id"] == "hd":
-                result["video"] = (video_format["url"])
-            elif video_format["format_id"] == "sd":
+            if video_format["format_id"] in ["hd", "sd"]:
                 result["video"] = (video_format["url"])
         ctx = {
             "title": result["title"],

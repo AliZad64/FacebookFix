@@ -8,8 +8,6 @@ from utils.constants import headers
 from template import templates
 from api.app import app
 async def embed_image(url: str, id: str) -> dict:
-    meta = {}
-    ctx = {}
     redi = app.state.redis
     result = await redi.get(url)
     if result:
@@ -19,12 +17,10 @@ async def embed_image(url: str, id: str) -> dict:
         response_content = response.content
 
     tree = html.fromstring(response_content)
-    for tag in tree.xpath('//meta'):
-        meta[tag.get('property')] = tag.get('content')
-    # assign every meta tag to the context
-    for key, value in meta.items():
-        if key:
-            ctx[key[3:]] = value
+    meta = {
+        tag.get('property'): tag.get('content') for tag in tree.xpath('//meta')
+    }
+    ctx = {key[3:]: value for key, value in meta.items() if key}
     ctx["url"] = url
     ctx["card"] = "summary_large_image"
     await redi.set(id, json.dumps(ctx))
