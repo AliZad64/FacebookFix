@@ -25,7 +25,13 @@ func GetVideoHandler(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
-	videoUrl := constants.VideoURL + queryParam.V
+	var videoUrl string
+	if len(queryParam.V) > 0 {
+		videoUrl = constants.VideoURL + queryParam.V
+	}
+	if len(id) > 0 {
+		videoUrl = constants.VideoURL + id
+	}
 
 	if len(queryParam.V) == 0 {
 		videoUrl = constants.VideoURL + id
