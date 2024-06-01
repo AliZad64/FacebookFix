@@ -1,6 +1,7 @@
 package main
 
 import (
+	"facebookfix/engine"
 	"log"
 	"os"
 
@@ -22,6 +23,7 @@ func main() {
 	gin.SetMode(mode)
 
 	router := gin.New()
+	router.Use(engine.CORSMiddleware())
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
 		log.Fatalln(err)
