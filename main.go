@@ -2,6 +2,7 @@ package main
 
 import (
 	"facebookfix/engine"
+	"facebookfix/handlers"
 	"html/template"
 	"log"
 	"os"
@@ -34,6 +35,8 @@ func main() {
 
 	router.LoadHTMLGlob("template/*")
 
+	//routes
+	router.GET("/", handlers.HomeHandler)
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
 		log.Fatalln(err)
