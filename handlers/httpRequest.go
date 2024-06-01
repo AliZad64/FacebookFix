@@ -6,6 +6,17 @@ import (
 	"net/http"
 )
 
+type HTMLData struct {
+	Title       string
+	Image       string
+	Video       string
+	Width       string
+	Height      string
+	Card        string
+	Url         string
+	Description string
+}
+
 func FacebookRequest(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
