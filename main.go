@@ -39,7 +39,7 @@ func main() {
 	router.GET("/", handlers.HomeHandler)
 	router.GET("/watch", handlers.GetVideoHandler)
 	router.GET("/:accountName/videos/:id", handlers.GetVideoHandler)
-	router.GET("/:id", handlers.GetReelHandler)
+	router.GET("/reel/:id", handlers.GetReelHandler)
 
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
