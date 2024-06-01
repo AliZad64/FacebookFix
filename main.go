@@ -2,6 +2,7 @@ package main
 
 import (
 	"facebookfix/engine"
+	"html/template"
 	"log"
 	"os"
 
@@ -15,6 +16,10 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	unEscapeHTML := make(map[string]interface{})
+	unEscapeHTML["unescapeHTML"] = func(s string) template.HTML {
+		return template.HTML(s)
+	}
 	mode := gin.DebugMode
 	environment := os.Getenv("ENVIRONMENT")
 	if environment == "PRODUCTION" {
@@ -26,6 +31,9 @@ func main() {
 	router.Use(engine.CORSMiddleware())
 	router.Use(engine.CustomHeaders())
 	router.Use(gin.LoggerWithFormatter(engine.HTTPLogger))
+
+	router.LoadHTMLGlob("template/*")
+
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
 		log.Fatalln(err)
