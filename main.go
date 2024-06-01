@@ -24,6 +24,7 @@ func main() {
 
 	router := gin.New()
 	router.Use(engine.CORSMiddleware())
+	router.Use(engine.CustomHeaders())
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
 		log.Fatalln(err)
