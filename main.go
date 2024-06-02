@@ -41,6 +41,7 @@ func main() {
 	router.GET("/:accountName/videos/:id", handlers.GetVideoHandler)
 	router.GET("/reel/:id", handlers.GetReelHandler)
 	router.GET("/photo", handlers.GetPhotoHandler)
+	router.GET("/marketplace/item/:id", handlers.GetMarketHandler)
 
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
