@@ -40,6 +40,7 @@ func main() {
 	router.GET("/watch", handlers.GetVideoHandler)
 	router.GET("/:accountName/videos/:id", handlers.GetVideoHandler)
 	router.GET("/reel/:id", handlers.GetReelHandler)
+	router.GET("/photo", handlers.GetPhotoHandler)
 
 	port := os.Getenv("PORT")
 	if err := router.Run(":" + port); err != nil {
