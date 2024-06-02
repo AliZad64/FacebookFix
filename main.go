@@ -29,6 +29,7 @@ func main() {
 	gin.SetMode(mode)
 
 	router := gin.New()
+	router.SetFuncMap(unEscapeHTML)
 	router.Use(engine.CORSMiddleware())
 	router.Use(engine.CustomHeaders())
 	router.Use(gin.LoggerWithFormatter(engine.HTTPLogger))
