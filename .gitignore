@@ -25,3 +25,6 @@ archive.zip
 .*.sw?
 .env
 tmp/*
+
+*.exe
+*.exe~
