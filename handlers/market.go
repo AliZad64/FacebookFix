@@ -22,7 +22,7 @@ func GetMarketHandler(c *gin.Context) {
 		return
 	}
 
-	marketData, err := GetMarket(string(request))
+	marketData, err := GetMarket(c, string(request))
 	if err != nil {
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
@@ -32,7 +32,7 @@ func GetMarketHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, constants.BaseTermplate, marketData)
 }
 
-func GetMarket(request string) (HTMLData, error) {
+func GetMarket(c *gin.Context, request string) (HTMLData, error) {
 	market, err := GetMarketContent(string(request))
 	if err != nil {
 		return HTMLData{}, err
@@ -41,9 +41,11 @@ func GetMarket(request string) (HTMLData, error) {
 	width := strconv.Itoa(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos[0].Image.Width)
 	height := strconv.Itoa(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos[0].Image.Height)
 	log.Println(market)
+	gridImages, err := gridHandler(c, market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos, "test")
+	log.Println(gridImages)
 	htmlData := HTMLData{
 		Title:       market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.MarketplaceListingTitle,
-		Image:       market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos[0].Image.URI,
+		Image:       gridImages,
 		Video:       "",
 		Width:       width,
 		Height:      height,
