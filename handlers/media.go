@@ -682,155 +682,8 @@ type MarketplaceProductDetailsPage struct {
 	ProductDetailsType                 string                             `json:"product_details_type"`
 	IsMarketplaceProductDetailsPage    string                             `json:"__isMarketplaceProductDetailsPage"`
 	MarketplaceListingRenderableTarget MarketplaceListingRenderableTarget `json:"marketplace_listing_renderable_target"`
-	Target                             struct {
-		Typename                                string              `json:"__typename"`
-		MarketplaceListingTitle                 string              `json:"marketplace_listing_title"`
-		ID                                      string              `json:"id"`
-		IsMarketplaceListingRenderable          string              `json:"__isMarketplaceListingRenderable"`
-		Story                                   MarketStory         `json:"story"`
-		RedactedDescription                     RedactedDescription `json:"redacted_description"`
-		CreationTime                            int                 `json:"creation_time"`
-		LocationText                            LocationText        `json:"location_text"`
-		LocationVanityOrID                      string              `json:"location_vanity_or_id"`
-		IsViewerSeller                          bool                `json:"is_viewer_seller"`
-		ListingInventoryType                    string              `json:"listing_inventory_type"`
-		FormattedPrice                          FormattedPrice      `json:"formatted_price"`
-		ListingPrice                            ListingPrice        `json:"listing_price"`
-		IsMarketplaceVehicleListing             string              `json:"__isMarketplaceVehicleListing"`
-		PaymentTimePeriod                       interface{}         `json:"payment_time_period"`
-		Condition                               string              `json:"condition"`
-		CustomTitle                             interface{}         `json:"custom_title"`
-		IsLive                                  bool                `json:"is_live"`
-		IsPending                               bool                `json:"is_pending"`
-		IsSold                                  bool                `json:"is_sold"`
-		LoggingID                               string              `json:"logging_id"`
-		IsMarketplaceListingWithLeadGen         string              `json:"__isMarketplaceListingWithLeadGen"`
-		MarketplaceLeadGenForm                  interface{}         `json:"marketplace_lead_gen_form"`
-		IsMarketplaceRealEstateListing          string              `json:"__isMarketplaceRealEstateListing"`
-		ListedBy                                interface{}         `json:"listed_by"`
-		RealEstateListingAgent                  interface{}         `json:"real_estate_listing_agent"`
-		InventoryCount                          interface{}         `json:"inventory_count"`
-		LegalReportingCtaType                   interface{}         `json:"legal_reporting_cta_type"`
-		LegalReportingUri                       interface{}         `json:"legal_reporting_uri"`
-		IsMarketplaceMessageable                string              `json:"__isMarketplaceMessageable"`
-		MessagingEnabled                        bool                `json:"messaging_enabled"`
-		IsMarketplaceListingWithIntegrityStatus string              `json:"__isMarketplaceListingWithIntegrityStatus"`
-		ListingIsRejected                       bool                `json:"listing_is_rejected"`
-		ProductItem                             struct {
-			ID                        string      `json:"id"`
-			ViewerPurchaseLimit       int         `json:"viewer_purchase_limit"`
-			BoostedMarketplaceListing interface{} `json:"boosted_marketplace_listing"`
-			PromotedListing           interface{} `json:"promoted_listing"`
-		} `json:"product_item"`
-		SellerMessageThread                     interface{}              `json:"seller_message_thread"`
-		IsCheckoutEnabled                       bool                     `json:"is_checkout_enabled"`
-		IsDraft                                 bool                     `json:"is_draft"`
-		CanSellerEdit                           bool                     `json:"can_seller_edit"`
-		OriginGroup                             interface{}              `json:"origin_group"`
-		IsMarketplaceListingWithVariants        string                   `json:"__isMarketplaceListingWithVariants"`
-		DefaultVariantListing                   interface{}              `json:"default_variant_listing"`
-		PrimaryMpEnt                            PrimaryMpEnt             `json:"primary_mp_ent"`
-		IsHidden                                bool                     `json:"is_hidden"`
-		MarketplaceListingSeller                MarketplaceListingSeller `json:"marketplace_listing_seller"`
-		ReportableEntID                         string                   `json:"reportable_ent_id"`
-		IsMarketplaceListingHideableFromFriends string                   `json:"__isMarketplaceListingHideableFromFriends"`
-		HiddenFromFriends                       string                   `json:"hidden_from_friends"`
-		CanShare                                bool                     `json:"can_share"`
-		CanSellerChangeAvailability             bool                     `json:"can_seller_change_availability"`
-		IsOnMarketplace                         bool                     `json:"is_on_marketplace"`
-		IsMarketplaceListingWithChildListings   string                   `json:"__isMarketplaceListingWithChildListings"`
-		HasChildren                             bool                     `json:"has_children"`
-		CrossPostInfo                           struct {
-			AllListings []struct {
-				Typename        string `json:"__typename"`
-				IsOnMarketplace bool   `json:"is_on_marketplace"`
-				ID              string `json:"id"`
-			} `json:"all_listings"`
-		} `json:"cross_post_info"`
-		IsMarketplaceListingWithDeliveryOptions string        `json:"__isMarketplaceListingWithDeliveryOptions"`
-		ActiveOrder                             interface{}   `json:"active_order"`
-		RebuyOrderReceipt                       interface{}   `json:"rebuy_order_receipt"`
-		C2CShippingEligible                     bool          `json:"c2c_shipping_eligible"`
-		IsShippingOffered                       bool          `json:"is_shipping_offered"`
-		MostRecentActiveOrderAsBuyer            interface{}   `json:"most_recent_active_order_as_buyer"`
-		OrderSummaries                          []interface{} `json:"order_summaries"`
-		DeliveryTypes                           []string      `json:"delivery_types"`
-		ShouldHidePdpShippingContent            bool          `json:"should_hide_pdp_shipping_content"`
-		ShippingProfile                         interface{}   `json:"shipping_profile"`
-		PrimaryListingPhoto                     ProductImage  `json:"primary_listing_photo"`
-		IsSellerBusinessOnboarded               bool          `json:"is_seller_business_onboarded"`
-		IsBuyNowEnabled                         bool          `json:"is_buy_now_enabled"`
-		IsPurchaseProtected                     bool          `json:"is_purchase_protected"`
-		IsMarketplaceListingWithCheckoutOffers  string        `json:"__isMarketplaceListingWithCheckoutOffers"`
-		CanBuyerMakeCheckoutOffer               bool          `json:"can_buyer_make_checkout_offer"`
-		IsCartEnabled                           bool          `json:"is_cart_enabled"`
-		SellerCms                               interface{}   `json:"seller_cms"`
-		IsMarketplaceListingWithVacationMode    string        `json:"__isMarketplaceListingWithVacationMode"`
-		VacationMode                            interface{}   `json:"vacation_mode"`
-		IsGroupCommerceProductItemIsDeprecated  string        `json:"__isGroupCommerceProductItemIsDeprecated"`
-		AllMessageThreads                       struct {
-			IsEmpty bool `json:"is_empty"`
-		} `json:"all_message_threads"`
-		MarketplaceListingCategoryID       string      `json:"marketplace_listing_category_id"`
-		ShouldShowTxnSurveyOnMas           bool        `json:"should_show_txn_survey_on_mas"`
-		IncentiveCampaignForFreeShipping   interface{} `json:"incentive_campaign_for_free_shipping"`
-		FirstMessageSuggestedValue         interface{} `json:"first_message_suggested_value"`
-		IsMarketplaceListingWithSweepstake string      `json:"__isMarketplaceListingWithSweepstake"`
-		SweepstakeEnabled                  bool        `json:"sweepstake_enabled"`
-		SweepstakeStatus                   string      `json:"sweepstake_status"`
-		SweepstakeContent                  interface{} `json:"sweepstake_content"`
-		MarketplaceBumpInfo                interface{} `json:"marketplace_bump_info"`
-		IsMarketplaceListingSellerNotices  string      `json:"__isMarketplaceListingSellerNotices"`
-		FiEnhancedAppealData               struct {
-			UseFiAppeals bool `json:"use_fi_appeals"`
-		} `json:"fi_enhanced_appeal_data"`
-		ListingSellerNotices                       []interface{}              `json:"listing_seller_notices"`
-		IsMarketplaceListingWithEmailCommunication string                     `json:"__isMarketplaceListingWithEmailCommunication"`
-		IsEmailCommunicationEnabled                bool                       `json:"is_email_communication_enabled"`
-		FairMarketValueData                        interface{}                `json:"fair_market_value_data"`
-		VehicleCondition                           interface{}                `json:"vehicle_condition"`
-		VehicleExteriorColor                       interface{}                `json:"vehicle_exterior_color"`
-		VehicleFeatures                            []interface{}              `json:"vehicle_features"`
-		VehicleFuelType                            interface{}                `json:"vehicle_fuel_type"`
-		VehicleIdentificationNumber                interface{}                `json:"vehicle_identification_number"`
-		VehicleInteriorColor                       interface{}                `json:"vehicle_interior_color"`
-		VehicleIsPaidOff                           interface{}                `json:"vehicle_is_paid_off"`
-		VehicleMakeDisplayName                     interface{}                `json:"vehicle_make_display_name"`
-		VehicleModelDisplayName                    interface{}                `json:"vehicle_model_display_name"`
-		VehicleNumberOfOwners                      interface{}                `json:"vehicle_number_of_owners"`
-		VehicleOdometerData                        VehicleOdometerData        `json:"vehicle_odometer_data"`
-		VehicleRegistrationPlateInformation        interface{}                `json:"vehicle_registration_plate_information"`
-		VehicleSellerType                          interface{}                `json:"vehicle_seller_type"`
-		VehicleSpecifications                      interface{}                `json:"vehicle_specifications"`
-		VehicleTitleStatus                         interface{}                `json:"vehicle_title_status"`
-		VehicleTransmissionType                    interface{}                `json:"vehicle_transmission_type"`
-		VehicleTrimDisplayName                     interface{}                `json:"vehicle_trim_display_name"`
-		VehicleCarfaxReport                        interface{}                `json:"vehicle_carfax_report"`
-		AttributeData                              []ProductItemAttributeData `json:"attribute_data"`
-		Location                                   Location                   `json:"location"`
-		OriginTarget                               OriginTarget               `json:"origin_target"`
-		ShippingOffered                            bool                       `json:"shipping_offered"`
-		LegalDisclosureImpressumURL                interface{}                `json:"legal_disclosure_impressum_url"`
-		IsMarketplaceListingWithBadges             string                     `json:"__isMarketplaceListingWithBadges"`
-		CommerceBadgesInfo                         CommerceBadgesInfo         `json:"commerce_badges_info"`
-		ListingAddress                             interface{}                `json:"listing_address"`
-		SellerPhoneNumber                          interface{}                `json:"seller_phone_number"`
-		VehicleWebsiteLink                         interface{}                `json:"vehicle_website_link"`
-		DealershipName                             interface{}                `json:"dealership_name"`
-		Seller                                     struct {
-			Typename               string `json:"__typename"`
-			ID                     string `json:"id"`
-			MarketplaceUserProfile struct {
-				BusinessInformation interface{} `json:"business_information"`
-				ID                  string      `json:"id"`
-			} `json:"marketplace_user_profile"`
-			IsActor string `json:"__isActor"`
-		} `json:"seller"`
-		EnergyEfficiencyClassEu interface{}    `json:"energy_efficiency_class_eu"`
-		ListingPhotos           []ProductImage `json:"listing_photos"`
-		PreRecordedVideos       []interface{}  `json:"pre_recorded_videos"`
-	} `json:"target"`
-	Viewer struct {
+	Target                             Target                             `json:"target"`
+	Viewer                             struct {
 		Typename                            string `json:"__typename"`
 		MarketplaceActorWithIntegrityStatus struct {
 			MarketplaceUserInDma bool `json:"marketplace_user_in_dma"`
@@ -848,6 +701,89 @@ type MarketplaceProductDetailsPage struct {
 	ID string `json:"id"`
 }
 
+type Target struct {
+	Typename                                string              `json:"__typename"`
+	MarketplaceListingTitle                 string              `json:"marketplace_listing_title"`
+	ID                                      string              `json:"id"`
+	IsMarketplaceListingRenderable          string              `json:"__isMarketplaceListingRenderable"`
+	Story                                   MarketStory         `json:"story"`
+	RedactedDescription                     RedactedDescription `json:"redacted_description"`
+	CreationTime                            int                 `json:"creation_time"`
+	LocationText                            LocationText        `json:"location_text"`
+	LocationVanityOrID                      string              `json:"location_vanity_or_id"`
+	IsViewerSeller                          bool                `json:"is_viewer_seller"`
+	ListingInventoryType                    string              `json:"listing_inventory_type"`
+	FormattedPrice                          FormattedPrice      `json:"formatted_price"`
+	ListingPrice                            ListingPrice        `json:"listing_price"`
+	IsMarketplaceVehicleListing             string              `json:"__isMarketplaceVehicleListing"`
+	PaymentTimePeriod                       interface{}         `json:"payment_time_period"`
+	Condition                               string              `json:"condition"`
+	CustomTitle                             interface{}         `json:"custom_title"`
+	IsLive                                  bool                `json:"is_live"`
+	IsPending                               bool                `json:"is_pending"`
+	IsSold                                  bool                `json:"is_sold"`
+	LoggingID                               string              `json:"logging_id"`
+	IsMarketplaceListingWithLeadGen         string              `json:"__isMarketplaceListingWithLeadGen"`
+	IsMarketplaceRealEstateListing          string              `json:"__isMarketplaceRealEstateListing"`
+	IsMarketplaceMessageable                string              `json:"__isMarketplaceMessageable"`
+	MessagingEnabled                        bool                `json:"messaging_enabled"`
+	IsMarketplaceListingWithIntegrityStatus string              `json:"__isMarketplaceListingWithIntegrityStatus"`
+	ListingIsRejected                       bool                `json:"listing_is_rejected"`
+	ProductItem                             struct {
+		ID                        string      `json:"id"`
+		ViewerPurchaseLimit       int         `json:"viewer_purchase_limit"`
+		BoostedMarketplaceListing interface{} `json:"boosted_marketplace_listing"`
+		PromotedListing           interface{} `json:"promoted_listing"`
+	} `json:"product_item"`
+	SellerMessageThread                     interface{}              `json:"seller_message_thread"`
+	IsCheckoutEnabled                       bool                     `json:"is_checkout_enabled"`
+	IsDraft                                 bool                     `json:"is_draft"`
+	CanSellerEdit                           bool                     `json:"can_seller_edit"`
+	OriginGroup                             interface{}              `json:"origin_group"`
+	IsMarketplaceListingWithVariants        string                   `json:"__isMarketplaceListingWithVariants"`
+	DefaultVariantListing                   interface{}              `json:"default_variant_listing"`
+	PrimaryMpEnt                            PrimaryMpEnt             `json:"primary_mp_ent"`
+	IsHidden                                bool                     `json:"is_hidden"`
+	MarketplaceListingSeller                MarketplaceListingSeller `json:"marketplace_listing_seller"`
+	ReportableEntID                         string                   `json:"reportable_ent_id"`
+	IsMarketplaceListingHideableFromFriends string                   `json:"__isMarketplaceListingHideableFromFriends"`
+	HiddenFromFriends                       string                   `json:"hidden_from_friends"`
+	CanShare                                bool                     `json:"can_share"`
+	CanSellerChangeAvailability             bool                     `json:"can_seller_change_availability"`
+	IsOnMarketplace                         bool                     `json:"is_on_marketplace"`
+	IsMarketplaceListingWithChildListings   string                   `json:"__isMarketplaceListingWithChildListings"`
+	HasChildren                             bool                     `json:"has_children"`
+	CrossPostInfo                           struct {
+		AllListings []struct {
+			Typename        string `json:"__typename"`
+			IsOnMarketplace bool   `json:"is_on_marketplace"`
+			ID              string `json:"id"`
+		} `json:"all_listings"`
+	} `json:"cross_post_info"`
+	IsMarketplaceListingWithDeliveryOptions    string                     `json:"__isMarketplaceListingWithDeliveryOptions"`
+	PrimaryListingPhoto                        ProductImage               `json:"primary_listing_photo"`
+	IsMarketplaceListingWithEmailCommunication string                     `json:"__isMarketplaceListingWithEmailCommunication"`
+	IsEmailCommunicationEnabled                bool                       `json:"is_email_communication_enabled"`
+	VehicleOdometerData                        VehicleOdometerData        `json:"vehicle_odometer_data"`
+	AttributeData                              []ProductItemAttributeData `json:"attribute_data"`
+	Location                                   Location                   `json:"location"`
+	OriginTarget                               OriginTarget               `json:"origin_target"`
+	ShippingOffered                            bool                       `json:"shipping_offered"`
+	LegalDisclosureImpressumURL                interface{}                `json:"legal_disclosure_impressum_url"`
+	IsMarketplaceListingWithBadges             string                     `json:"__isMarketplaceListingWithBadges"`
+	CommerceBadgesInfo                         CommerceBadgesInfo         `json:"commerce_badges_info"`
+	Seller                                     struct {
+		Typename               string `json:"__typename"`
+		ID                     string `json:"id"`
+		MarketplaceUserProfile struct {
+			BusinessInformation interface{} `json:"business_information"`
+			ID                  string      `json:"id"`
+		} `json:"marketplace_user_profile"`
+		IsActor string `json:"__isActor"`
+	} `json:"seller"`
+	EnergyEfficiencyClassEu interface{}    `json:"energy_efficiency_class_eu"`
+	ListingPhotos           []ProductImage `json:"listing_photos"`
+}
 type Viewer struct {
 	MarketplaceProductDetailsPage MarketplaceProductDetailsPage `json:"marketplace_product_details_page"`
 }
@@ -867,5 +803,6 @@ type BboxInner struct {
 }
 
 type MarketSchema struct {
-	BboxInner BboxInner `json:"__bbox"`
+	BboxInner     BboxInner      `json:"__bbox"`
+	LisitngPhotos []ProductImage `json:"listing_photos"`
 }
