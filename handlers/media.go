@@ -804,5 +804,5 @@ type BboxInner struct {
 
 type MarketSchema struct {
 	BboxInner     BboxInner      `json:"__bbox"`
-	LisitngPhotos []ProductImage `json:"listing_photos"`
+	ListingPhotos []ProductImage `json:"listing_photos"`
 }
