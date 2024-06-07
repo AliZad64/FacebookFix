@@ -37,15 +37,23 @@ func GetMarket(c *gin.Context, request string) (HTMLData, error) {
 	if err != nil {
 		return HTMLData{}, err
 	}
-
-	width := strconv.Itoa(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos[0].Image.Width)
-	height := strconv.Itoa(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos[0].Image.Height)
+	log.Println(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos)
+	if len(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos) == 0 {
+		market.ListingPhotos, err = GetMarketPlaceListingPhotos(string(request))
+		if err != nil {
+			return HTMLData{}, err
+		}
+	} else {
+		market.ListingPhotos.LisitingPhotos = market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos
+	}
+	log.Println(market.ListingPhotos)
+	width := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Width)
+	height := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Height)
 	log.Println(market)
-	gridImages, err := gridHandler(c, market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos, "test")
-	log.Println(gridImages)
+	// gridImages, err := gridHandler(c, market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos, "test")
 	htmlData := HTMLData{
 		Title:       market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.MarketplaceListingTitle,
-		Image:       gridImages,
+		Image:       market.ListingPhotos.LisitingPhotos[0].Image.URI,
 		Video:       "",
 		Width:       width,
 		Height:      height,
@@ -69,11 +77,32 @@ func GetMarketContent(request string) (MarketSchema, error) {
 	if startIndex == -1 {
 		return market, errors.New("marketplace listing not found because no startIndex")
 	}
+	log.Println(startIndex)
 	responseMatch = responseMatch[startIndex:] + "0}}"
+	//save responseMatch to file
+
 	err := json.Unmarshal([]byte(responseMatch), &market)
 	if err != nil {
+		log.Println(err)
 		return market, err
 	}
 
 	return market, nil
+}
+
+func GetMarketPlaceListingPhotos(request string) (LisitingPhoto, error) {
+	var listingPhotos LisitingPhoto
+	re := regexp.MustCompile(constants.MARKET_LISTING_PHOTOS_REGEX)
+	match := re.FindStringSubmatch(request)
+	if len(match) == 0 {
+		return LisitingPhoto{}, errors.New("marketplace listing not found because no match")
+	}
+	responseMatch := match[1]
+	responseMatch = "{" + responseMatch + "}"
+	err := json.Unmarshal([]byte(responseMatch), &listingPhotos)
+	if err != nil {
+		return LisitingPhoto{}, err
+	}
+	return listingPhotos, nil
+
 }
