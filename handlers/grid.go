@@ -1,19 +1,18 @@
 package handlers
 
 import (
+	"image/png"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
-
-	"git.sr.ht/~jackmordaunt/go-libwebp/webp"
 
 	"github.com/gin-gonic/gin"
 	gim "github.com/ozankasikci/go-image-merge"
 )
 
 func gridHandler(c *gin.Context, mediaImages []ProductImage, ID string) (string, error) {
-	gridFileName := filepath.Join("static", ID+".webp")
+	gridFileName := filepath.Join("static", ID+".jpeg")
 
 	if _, err := os.Stat(gridFileName); err == nil {
 		return gridFileName, nil
@@ -72,10 +71,9 @@ func gridHandler(c *gin.Context, mediaImages []ProductImage, ID string) (string,
 	}
 	defer f.Close()
 
-	if err := webp.Encode(f, grid, nil); err != nil {
+	if err := png.Encode(f, grid); err != nil {
 		return "", err
 	}
-
 	c.File(gridFileName)
 	return gridFileName, nil
 }
