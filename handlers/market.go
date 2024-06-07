@@ -37,7 +37,6 @@ func GetMarket(c *gin.Context, request string) (HTMLData, error) {
 	if err != nil {
 		return HTMLData{}, err
 	}
-	log.Println(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos)
 	if len(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos) == 0 {
 		market.ListingPhotos, err = GetMarketPlaceListingPhotos(string(request))
 		if err != nil {
@@ -46,10 +45,8 @@ func GetMarket(c *gin.Context, request string) (HTMLData, error) {
 	} else {
 		market.ListingPhotos.LisitingPhotos = market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos
 	}
-	log.Println(market.ListingPhotos)
 	width := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Width)
 	height := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Height)
-	log.Println(market)
 	// gridImages, err := gridHandler(c, market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos, "test")
 	htmlData := HTMLData{
 		Title:       market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.MarketplaceListingTitle,
@@ -77,7 +74,6 @@ func GetMarketContent(request string) (MarketSchema, error) {
 	if startIndex == -1 {
 		return market, errors.New("marketplace listing not found because no startIndex")
 	}
-	log.Println(startIndex)
 	responseMatch = responseMatch[startIndex:] + "0}}"
 	//save responseMatch to file
 
