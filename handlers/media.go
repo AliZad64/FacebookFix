@@ -666,9 +666,6 @@ type PrimaryMpEnt struct {
 	ID       string `json:"id"`
 }
 
-type LisitingPhoto struct {
-	LisitingPhotos []ProductImage `json:"listing_photos"`
-}
 type ProductImage struct {
 	Typename             string `json:"__typename"`
 	AccessibilityCaption string `json:"accessibility_caption"`
@@ -806,6 +803,6 @@ type BboxInner struct {
 }
 
 type MarketSchema struct {
-	BboxInner     BboxInner     `json:"__bbox"`
-	ListingPhotos LisitingPhoto `json:"listing_photos"`
+	BboxInner     BboxInner      `json:"__bbox"`
+	ListingPhotos []ProductImage `json:"listing_photos"`
 }

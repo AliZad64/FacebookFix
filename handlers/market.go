@@ -43,10 +43,10 @@ func GetMarket(c *gin.Context, request string, ID string) (HTMLData, error) {
 			return HTMLData{}, err
 		}
 	} else {
-		market.ListingPhotos.LisitingPhotos = market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos
+		market.ListingPhotos = market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos
 	}
-	width := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Width)
-	height := strconv.Itoa(market.ListingPhotos.LisitingPhotos[0].Image.Height)
+	width := strconv.Itoa(market.ListingPhotos[0].Image.Width)
+	height := strconv.Itoa(market.ListingPhotos[0].Image.Height)
 	// gridImages, err := gridHandler(c, market.ListingPhotos.LisitingPhotos, ID)
 	// if err != nil {
 	// 	log.Println(err)
@@ -54,7 +54,7 @@ func GetMarket(c *gin.Context, request string, ID string) (HTMLData, error) {
 	// }
 	htmlData := HTMLData{
 		Title:       market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.MarketplaceListingTitle,
-		Image:       market.ListingPhotos.LisitingPhotos[0].Image.URI,
+		Image:       market.ListingPhotos[0].Image.URI,
 		Video:       "",
 		Width:       width,
 		Height:      height,
@@ -90,18 +90,19 @@ func GetMarketContent(request string) (MarketSchema, error) {
 	return market, nil
 }
 
-func GetMarketPlaceListingPhotos(request string) (LisitingPhoto, error) {
-	var listingPhotos LisitingPhoto
+func GetMarketPlaceListingPhotos(request string) ([]ProductImage, error) {
+	var listingPhotos []ProductImage
 	re := regexp.MustCompile(constants.MARKET_LISTING_PHOTOS_REGEX)
 	match := re.FindStringSubmatch(request)
 	if len(match) == 0 {
-		return LisitingPhoto{}, errors.New("marketplace listing not found because no match")
+		return nil, errors.New("marketplace listing not found because no match")
 	}
+	log.Println(match)
 	responseMatch := match[1]
-	responseMatch = "{" + responseMatch + "}"
+	responseMatch = responseMatch[17:]
 	err := json.Unmarshal([]byte(responseMatch), &listingPhotos)
 	if err != nil {
-		return LisitingPhoto{}, err
+		return nil, err
 	}
 	return listingPhotos, nil
 
