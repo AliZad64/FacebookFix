@@ -97,7 +97,6 @@ func GetMarketPlaceListingPhotos(request string) ([]ProductImage, error) {
 	if len(match) == 0 {
 		return nil, errors.New("marketplace listing not found because no match")
 	}
-	log.Println(match)
 	responseMatch := match[1]
 	responseMatch = responseMatch[17:]
 	err := json.Unmarshal([]byte(responseMatch), &listingPhotos)
