@@ -11,7 +11,7 @@ import (
 	gim "github.com/ozankasikci/go-image-merge"
 )
 
-func gridHandler(c *gin.Context, mediaImages []ProductImage, ID string) (string, error) {
+func GridHandler(c *gin.Context, mediaImages []ProductImage, ID string) (string, error) {
 	gridFileName := filepath.Join("static", ID+".jpeg")
 
 	if _, err := os.Stat(gridFileName); err == nil {
