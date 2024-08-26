@@ -14,11 +14,20 @@ async def embed_video(url: str, id: str) -> dict:
         return json.loads(result)
     with YoutubeDL() as ydl:
         result = await asyncio.to_thread(ydl.extract_info, url, False)
+        # save result in txt file
+        with open(f"video_{id}.txt", "w") as file:
+            file.write(json.dumps(result))
+        # assign every meta tag to the context
         for video_format in result["formats"]:
             if video_format["format_id"] == "hd":
                 result["video"] = (video_format["url"])
+                print(video_format["width"])
+                result["width"] = video_format["width"]
+                result["height"] = video_format["height"]
             elif video_format["format_id"] == "sd":
                 result["video"] = (video_format["url"])
+                result["width"] = video_format["width"]
+                result["height"] = video_format["height"]
         ctx = {
             "title": result["title"],
             "description": result["description"],
@@ -28,7 +37,6 @@ async def embed_video(url: str, id: str) -> dict:
             "card": "player",
             "video": result["video"],
         }
-        await redi.set(id, json.dumps(ctx))
     return result
 
 
