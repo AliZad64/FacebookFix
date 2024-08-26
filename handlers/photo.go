@@ -47,8 +47,13 @@ func GetPhoto(request string) (HTMLData, error) {
 	if err != nil {
 		return HTMLData{}, err
 	}
+	actorName := "Facebook"
+	if len(media.Bbox.Result.Data.CreationStory.CometSections.ActorPhoto.Story.Actors) > 0 {
+		actorName = media.Bbox.Result.Data.CreationStory.CometSections.ActorPhoto.Story.Actors[0].Name
+	}
+
 	htmlData := HTMLData{
-		Title:       media.Bbox.Result.Data.CreationStory.CometSections.ActorPhoto.Story.Actors[0].Name,
+		Title:       actorName,
 		Image:       photo.Data.CurrMedia.Image.URI,
 		Video:       "",
 		Card:        "summary_large_image",
