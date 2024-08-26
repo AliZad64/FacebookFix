@@ -27,4 +27,4 @@ typing_extensions==4.5.0
 urllib3==1.26.15
 uvicorn==0.21.1
 websockets==11.0
-yt-dlp==2023.3.4
+yt-dlp==2024.7.7
