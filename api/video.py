@@ -21,13 +21,10 @@ async def embed_video(url: str, id: str) -> dict:
         for video_format in result["formats"]:
             if video_format["format_id"] == "hd":
                 result["video"] = (video_format["url"])
-                print(video_format["width"])
-                result["width"] = video_format["width"]
-                result["height"] = video_format["height"]
             elif video_format["format_id"] == "sd":
                 result["video"] = (video_format["url"])
-                result["width"] = video_format["width"]
-                result["height"] = video_format["height"]
+        result["width"] = 640
+        result["height"] = 360
         ctx = {
             "title": result["title"],
             "description": result["description"],
