@@ -10,10 +10,10 @@ from api.app import app
 async def embed_image(url: str, id: str) -> dict:
     meta = {}
     ctx = {}
-    redi = app.state.redis
-    result = await redi.get(url)
-    if result:
-        return json.loads(result)
+    # redi = app.state.redis
+    # result = await redi.get(url)
+    # if result:
+    #     return json.loads(result)
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=headers)
         response_content = response.content
@@ -27,7 +27,7 @@ async def embed_image(url: str, id: str) -> dict:
             ctx[key[3:]] = value
     ctx["url"] = url
     ctx["card"] = "summary_large_image"
-    await redi.set(id, json.dumps(ctx))
+    # await redi.set(id, json.dumps(ctx))
     return ctx
 
 

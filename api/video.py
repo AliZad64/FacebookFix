@@ -8,10 +8,10 @@ from api.app import app
 
 async def embed_video(url: str, id: str) -> dict:
     ctx = {}
-    redi = app.state.redis
-    result = await redi.get(id)
-    if result:
-        return json.loads(result)
+    # redi = app.state.redis
+    # result = await redi.get(id)
+    # if result:
+    #     return json.loads(result)
     with YoutubeDL() as ydl:
         result = await asyncio.to_thread(ydl.extract_info, url, False)
         # save result in txt file
