@@ -24,7 +24,7 @@ func GetReelHandler(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
-
+	data.Url = reelUrl
 	c.HTML(http.StatusOK, constants.BaseTermplate, data)
 }
 
@@ -43,8 +43,8 @@ func GetReel(html string) (HTMLData, error) {
 		Card:        "player",
 		Description: "Reel",
 		Video:       reelStruct.VideoID,
-		Width:       "720",
-		Height:      "1280",
+		Width:       "640",
+		Height:      "360",
 	}
 
 	return data, nil

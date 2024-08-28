@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"facebookfix/constants"
 	"fmt"
+	"log"
 	"net/http"
 	"regexp"
 
@@ -48,6 +49,7 @@ func GetVideoHandler(c *gin.Context) {
 		return
 	}
 	data.Url = videoUrl
+	log.Println(data.Url)
 	c.HTML(http.StatusOK, "base.tmpl", data)
 }
 
@@ -67,8 +69,8 @@ func GetVideo(request string) (HTMLData, error) {
 		Card:        "player",
 		Description: mediaStruct.CometSections.Message.Story.Message.Text,
 		Video:       videoStruct.VideoID,
-		Width:       "720",
-		Height:      "1280",
+		Width:       "640",
+		Height:      "360",
 	}
 
 	return data, nil
