@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"facebookfix/constants"
+	"log"
 	"net/http"
 	"regexp"
 
@@ -16,18 +17,20 @@ type PhotoParams struct {
 func GetPhotoHandler(c *gin.Context) {
 	var photoParams PhotoParams
 	if err := c.ShouldBindQuery(&photoParams); err != nil {
+		log.Println("error photo1 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
 	photoUrl := constants.PhotoURL + photoParams.Fbid
 	request, err := FacebookRequest(photoUrl)
 	if err != nil {
+		log.Println("error photo2 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
-
 	photo, err := GetPhoto(string(request))
 	if err != nil {
+		log.Println("error photo3 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
@@ -40,11 +43,13 @@ func GetPhoto(request string) (HTMLData, error) {
 
 	photo, err := GetPhotoContent(string(request))
 	if err != nil {
+		log.Println("error photo4 ", err)
 		return HTMLData{}, err
 	}
 
 	media, err := GetPhotoMediaContent(string(request))
 	if err != nil {
+		log.Println("error photo5 ", err)
 		return HTMLData{}, err
 	}
 	actorName := "Facebook"

@@ -19,12 +19,13 @@ func GetMarketHandler(c *gin.Context) {
 	log.Println("the market url is ", marketUrl)
 	request, err := FacebookRequest(marketUrl)
 	if err != nil {
+		log.Println("error1 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
-
 	marketData, err := GetMarket(c, string(request), marketID)
 	if err != nil {
+		log.Println("error2 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
@@ -36,11 +37,13 @@ func GetMarketHandler(c *gin.Context) {
 func GetMarket(c *gin.Context, request string, ID string) (HTMLData, error) {
 	market, err := GetMarketContent(string(request))
 	if err != nil {
+		log.Println("error3 ", err)
 		return HTMLData{}, err
 	}
 	if len(market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos) == 0 {
 		market.ListingPhotos, err = GetMarketPlaceListingPhotos(string(request))
 		if err != nil {
+			log.Println("error4 ", err)
 			return HTMLData{}, err
 		}
 	} else {
