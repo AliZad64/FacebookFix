@@ -16,6 +16,7 @@ import (
 func GetMarketHandler(c *gin.Context) {
 	marketID := c.Param("id")
 	marketUrl := constants.MarketUrl + marketID
+	log.Println("the market url is ", marketUrl)
 	request, err := FacebookRequest(marketUrl)
 	if err != nil {
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
@@ -45,8 +46,11 @@ func GetMarket(c *gin.Context, request string, ID string) (HTMLData, error) {
 	} else {
 		market.ListingPhotos = market.BboxInner.Result.Data.Viewer.MarketplaceProductDetailsPage.Target.ListingPhotos
 	}
-	width := strconv.Itoa(market.ListingPhotos[0].Image.Width)
-	height := strconv.Itoa(market.ListingPhotos[0].Image.Height)
+	var width, height string
+	if len(market.ListingPhotos) > 0 {
+		width = strconv.Itoa(market.ListingPhotos[0].Image.Width)
+		height = strconv.Itoa(market.ListingPhotos[0].Image.Height)
+	}
 	// gridImages, err := gridHandler(c, market.ListingPhotos.LisitingPhotos, ID)
 	// if err != nil {
 	// 	log.Println(err)
