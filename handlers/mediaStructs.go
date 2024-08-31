@@ -10,42 +10,6 @@ type MediaStory struct {
 	} `json:"message"`
 }
 
-type CometFeedStoryActorPhotoStrategy struct {
-	TypeName string `json:"__typename"`
-	Story    Story  `json:"story"`
-}
-
-type CometFeedStoryMinimizedTimestampStrategy struct {
-	TypeName string `json:"__typename"`
-	Story    struct {
-		CreationTime int         `json:"creation_time"`
-		URL          string      `json:"url"`
-		GhlLabel     interface{} `json:"ghl_label"`
-		ID           string      `json:"id"`
-	} `json:"story"`
-}
-
-type CometFeedStoryAudienceStrategy struct {
-	TypeName             string `json:"__typename"`
-	IsICometStorySection string `json:"__isICometStorySection"`
-	IsProdEligible       bool   `json:"is_prod_eligible"`
-	Story                struct {
-		PrivacyScope struct {
-			IconImage struct {
-				Name string `json:"name"`
-			} `json:"icon_image"`
-			Description string `json:"description"`
-		} `json:"privacy_scope"`
-		ID string `json:"id"`
-	} `json:"story"`
-	ModuleOperationCometFeedStoryMetadataSectionStory struct {
-		DR string `json:"__dr"`
-	} `json:"__module_operation_CometFeedStoryMetadataSection_story"`
-	ModuleComponentCometFeedStoryMetadataSectionStory struct {
-		DR string `json:"__dr"`
-	} `json:"__module_component_CometFeedStoryMetadataSection_story"`
-}
-
 type MediaStruct struct {
 	CometSections CometSections `json:"comet_sections"`
 }
