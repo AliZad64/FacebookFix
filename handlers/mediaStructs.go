@@ -75,13 +75,6 @@ type ReelMediaStruct struct {
 	BrandedContentPostInfo interface{}           `json:"branded_content_post_info"`
 }
 
-type ProfilePicture struct {
-	URI    string `json:"uri"`
-	Width  int    `json:"width"`
-	Height int    `json:"height"`
-	Scale  int    `json:"scale"`
-}
-
 type DelegatePage struct {
 	IsBusinessPageActive bool   `json:"is_business_page_active"`
 	ID                   string `json:"id"`
@@ -183,28 +176,6 @@ type LatitudeLongitude struct {
 	Longitude float64 `json:"longitude"`
 }
 
-type MarketLocation struct {
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-}
-
-type MarketplaceListingRenderableTarget struct {
-	SeoVirtualCategory                      interface{}    `json:"seo_virtual_category"`
-	Location                                MarketLocation `json:"location"`
-	IsShippingOffered                       bool           `json:"is_shipping_offered"`
-	IsMarketplaceListingWithSweepstake      string         `json:"__isMarketplaceListingWithSweepstake"`
-	SweepstakeEnabled                       bool           `json:"sweepstake_enabled"`
-	Typename                                string         `json:"__typename"`
-	ID                                      string         `json:"id"`
-	IsMarketplaceListingRenderable          string         `json:"__isMarketplaceListingRenderable"`
-	IsMarketplaceListingWithPersonalization string         `json:"__isMarketplaceListingWithPersonalization"`
-	PersonalizationInfo                     interface{}    `json:"personalization_info"`
-}
-
-type TranslatabilityForViewer struct {
-	SourceDialectName string `json:"source_dialect_name"`
-}
-
 type MarketActor struct {
 	Typename string `json:"__typename"`
 	Name     string `json:"name"`
@@ -218,24 +189,6 @@ type Tracking struct {
 	Actrs                string `json:"actrs"`
 }
 
-type SaveInfo struct {
-	ViewerSaveState string `json:"viewer_save_state"`
-}
-
-type MarketStory struct {
-	TranslationAvailableForViewer bool                     `json:"translation_available_for_viewer"`
-	TranslatabilityForViewer      TranslatabilityForViewer `json:"translatability_for_viewer"`
-	TranslatedMessageForViewer    interface{}              `json:"translated_message_for_viewer"`
-	ID                            string                   `json:"id"`
-	Actors                        []MarketActor            `json:"actors"`
-	IsEntity                      string                   `json:"__isEntity"`
-	URL                           string                   `json:"url"`
-	IsNode                        string                   `json:"__isNode"`
-	Tracking                      interface{}              `json:"tracking"`
-	PostID                        string                   `json:"post_id"`
-	SaveInfo                      SaveInfo                 `json:"save_info"`
-}
-
 type RedactedDescription struct {
 	Text string `json:"text"`
 }
@@ -244,65 +197,10 @@ type LocationText struct {
 	Text string `json:"text"`
 }
 
-type FormattedPrice struct {
-	Text string `json:"text"`
-}
-
-type ListingPrice struct {
-	AmountWithOffset string `json:"amount_with_offset"`
-	Currency         string `json:"currency"`
-	Amount           string `json:"amount"`
-}
-
 type MarketplaceLeadGenForm struct {
 	ViewerPurchaseLimit       int         `json:"viewer_purchase_limit"`
 	BoostedMarketplaceListing interface{} `json:"boosted_marketplace_listing"`
 	PromotedListing           interface{} `json:"promoted_listing"`
-}
-
-type MarketplaceUserProfile struct {
-	C2COrdersShipped interface{} `json:"c2c_orders_shipped"`
-	ID               string      `json:"id"`
-}
-
-type MarketplaceRatingsStatsByRole struct {
-	SellerStats struct {
-		FiveStarRatingsAverage         int `json:"five_star_ratings_average"`
-		FiveStarTotalRatingCountByRole int `json:"five_star_total_rating_count_by_role"`
-	} `json:"seller_stats"`
-	SellerRatingsArePrivate bool `json:"seller_ratings_are_private"`
-}
-
-type MarketplaceListingSeller struct {
-	Typename                               string                        `json:"__typename"`
-	ID                                     string                        `json:"id"`
-	UserID                                 string                        `json:"user_id"`
-	IsProfile                              string                        `json:"__isProfile"`
-	MarketplaceUserProfile                 MarketplaceUserProfile        `json:"marketplace_user_profile"`
-	IsActor                                string                        `json:"__isActor"`
-	Name                                   string                        `json:"name"`
-	ProfilePicture                         ProfilePicture                `json:"profile_picture"`
-	ProfilePicture160                      ProfilePicture                `json:"profile_picture_160"`
-	ProfilePicture112                      ProfilePicture                `json:"profile_picture_112"`
-	ProfilePicture64                       ProfilePicture                `json:"profile_picture_64"`
-	ProfilePicture60                       ProfilePicture                `json:"profile_picture_60"`
-	ProfilePicture50                       ProfilePicture                `json:"profile_picture_50"`
-	IsActorWithCustomizableCommerceProfile string                        `json:"__isActorWithCustomizableCommerceProfile"`
-	CommerceProfilePictureWithFallback160  ProfilePicture                `json:"commerce_profile_picture_with_fallback_160"`
-	CommerceProfilePictureWithFallback112  ProfilePicture                `json:"commerce_profile_picture_with_fallback_112"`
-	CommerceProfilePictureWithFallback64   ProfilePicture                `json:"commerce_profile_picture_with_fallback_64"`
-	CommerceProfilePictureWithFallback60   ProfilePicture                `json:"commerce_profile_picture_with_fallback_60"`
-	CommerceProfilePictureWithFallback50   ProfilePicture                `json:"commerce_profile_picture_with_fallback_50"`
-	JoinTime                               int                           `json:"join_time"`
-	MarketplaceRatingsStatsByRole          MarketplaceRatingsStatsByRole `json:"marketplace_ratings_stats_by_role"`
-	MarketplaceShouldDisplayVerifiedBadge  bool                          `json:"marketplace_should_display_verified_badge"`
-}
-
-type ProductItemAttributeData struct {
-	Typename      string `json:"__typename"`
-	AttributeName string `json:"attribute_name"`
-	Value         string `json:"value"`
-	Label         string `json:"label"`
 }
 
 type ReverseGeocodeDetailed struct {
@@ -314,26 +212,6 @@ type Location struct {
 	Latitude               float64                `json:"latitude"`
 	Longitude              float64                `json:"longitude"`
 	ReverseGeocodeDetailed ReverseGeocodeDetailed `json:"reverse_geocode_detailed"`
-}
-
-type OriginTarget struct {
-	Typename string `json:"__typename"`
-	ID       string `json:"id"`
-}
-
-type CommerceBadgesInfo struct {
-	SourceSummary interface{}   `json:"source_summary"`
-	Badges        []interface{} `json:"badges"`
-}
-
-type VehicleOdometerData struct {
-	Unit  interface{} `json:"unit"`
-	Value interface{} `json:"value"`
-}
-
-type PrimaryMpEnt struct {
-	Typename string `json:"__typename"`
-	ID       string `json:"id"`
 }
 
 type ProductImage struct {
@@ -348,111 +226,16 @@ type ProductImage struct {
 }
 
 type MarketplaceProductDetailsPage struct {
-	Typename                           string                             `json:"__typename"`
-	ProductDetailsType                 string                             `json:"product_details_type"`
-	IsMarketplaceProductDetailsPage    string                             `json:"__isMarketplaceProductDetailsPage"`
-	MarketplaceListingRenderableTarget MarketplaceListingRenderableTarget `json:"marketplace_listing_renderable_target"`
-	Target                             Target                             `json:"target"`
-	Viewer                             struct {
-		Typename                            string `json:"__typename"`
-		MarketplaceActorWithIntegrityStatus struct {
-			MarketplaceUserInDma bool `json:"marketplace_user_in_dma"`
-		} `json:"marketplace_actor_with_integrity_status"`
-		MarketplaceSettings struct {
-			LoanPaymentOptions interface{} `json:"loan_payment_options"`
-		} `json:"marketplace_settings"`
-	} `json:"viewer"`
-	ModuleOperationMarketplacePDPPage struct {
-		Dr string `json:"__dr"`
-	} `json:"__module_operation_MarketplacePDP_page"`
-	ModuleComponentMarketplacePDPPage struct {
-		Dr string `json:"__dr"`
-	} `json:"__module_component_MarketplacePDP_page"`
-	ID string `json:"id"`
+	Target Target `json:"target"`
 }
 
 type Target struct {
-	Typename                                string              `json:"__typename"`
-	MarketplaceListingTitle                 string              `json:"marketplace_listing_title"`
-	ID                                      string              `json:"id"`
-	IsMarketplaceListingRenderable          string              `json:"__isMarketplaceListingRenderable"`
-	Story                                   MarketStory         `json:"story"`
-	RedactedDescription                     RedactedDescription `json:"redacted_description"`
-	CreationTime                            int                 `json:"creation_time"`
-	LocationText                            LocationText        `json:"location_text"`
-	LocationVanityOrID                      string              `json:"location_vanity_or_id"`
-	IsViewerSeller                          bool                `json:"is_viewer_seller"`
-	ListingInventoryType                    string              `json:"listing_inventory_type"`
-	FormattedPrice                          FormattedPrice      `json:"formatted_price"`
-	ListingPrice                            ListingPrice        `json:"listing_price"`
-	IsMarketplaceVehicleListing             string              `json:"__isMarketplaceVehicleListing"`
-	PaymentTimePeriod                       interface{}         `json:"payment_time_period"`
-	Condition                               string              `json:"condition"`
-	CustomTitle                             interface{}         `json:"custom_title"`
-	IsLive                                  bool                `json:"is_live"`
-	IsPending                               bool                `json:"is_pending"`
-	IsSold                                  bool                `json:"is_sold"`
-	LoggingID                               string              `json:"logging_id"`
-	IsMarketplaceListingWithLeadGen         string              `json:"__isMarketplaceListingWithLeadGen"`
-	IsMarketplaceRealEstateListing          string              `json:"__isMarketplaceRealEstateListing"`
-	IsMarketplaceMessageable                string              `json:"__isMarketplaceMessageable"`
-	MessagingEnabled                        bool                `json:"messaging_enabled"`
-	IsMarketplaceListingWithIntegrityStatus string              `json:"__isMarketplaceListingWithIntegrityStatus"`
-	ListingIsRejected                       bool                `json:"listing_is_rejected"`
-	ProductItem                             struct {
-		ID                        string      `json:"id"`
-		ViewerPurchaseLimit       int         `json:"viewer_purchase_limit"`
-		BoostedMarketplaceListing interface{} `json:"boosted_marketplace_listing"`
-		PromotedListing           interface{} `json:"promoted_listing"`
-	} `json:"product_item"`
-	SellerMessageThread                     interface{}              `json:"seller_message_thread"`
-	IsCheckoutEnabled                       bool                     `json:"is_checkout_enabled"`
-	IsDraft                                 bool                     `json:"is_draft"`
-	CanSellerEdit                           bool                     `json:"can_seller_edit"`
-	OriginGroup                             interface{}              `json:"origin_group"`
-	IsMarketplaceListingWithVariants        string                   `json:"__isMarketplaceListingWithVariants"`
-	DefaultVariantListing                   interface{}              `json:"default_variant_listing"`
-	PrimaryMpEnt                            PrimaryMpEnt             `json:"primary_mp_ent"`
-	IsHidden                                bool                     `json:"is_hidden"`
-	MarketplaceListingSeller                MarketplaceListingSeller `json:"marketplace_listing_seller"`
-	ReportableEntID                         string                   `json:"reportable_ent_id"`
-	IsMarketplaceListingHideableFromFriends string                   `json:"__isMarketplaceListingHideableFromFriends"`
-	HiddenFromFriends                       string                   `json:"hidden_from_friends"`
-	CanShare                                bool                     `json:"can_share"`
-	CanSellerChangeAvailability             bool                     `json:"can_seller_change_availability"`
-	IsOnMarketplace                         bool                     `json:"is_on_marketplace"`
-	IsMarketplaceListingWithChildListings   string                   `json:"__isMarketplaceListingWithChildListings"`
-	HasChildren                             bool                     `json:"has_children"`
-	CrossPostInfo                           struct {
-		AllListings []struct {
-			Typename        string `json:"__typename"`
-			IsOnMarketplace bool   `json:"is_on_marketplace"`
-			ID              string `json:"id"`
-		} `json:"all_listings"`
-	} `json:"cross_post_info"`
-	IsMarketplaceListingWithDeliveryOptions    string                     `json:"__isMarketplaceListingWithDeliveryOptions"`
-	PrimaryListingPhoto                        ProductImage               `json:"primary_listing_photo"`
-	IsMarketplaceListingWithEmailCommunication string                     `json:"__isMarketplaceListingWithEmailCommunication"`
-	IsEmailCommunicationEnabled                bool                       `json:"is_email_communication_enabled"`
-	VehicleOdometerData                        VehicleOdometerData        `json:"vehicle_odometer_data"`
-	AttributeData                              []ProductItemAttributeData `json:"attribute_data"`
-	Location                                   Location                   `json:"location"`
-	OriginTarget                               OriginTarget               `json:"origin_target"`
-	ShippingOffered                            bool                       `json:"shipping_offered"`
-	LegalDisclosureImpressumURL                interface{}                `json:"legal_disclosure_impressum_url"`
-	IsMarketplaceListingWithBadges             string                     `json:"__isMarketplaceListingWithBadges"`
-	CommerceBadgesInfo                         CommerceBadgesInfo         `json:"commerce_badges_info"`
-	Seller                                     struct {
-		Typename               string `json:"__typename"`
-		ID                     string `json:"id"`
-		MarketplaceUserProfile struct {
-			BusinessInformation interface{} `json:"business_information"`
-			ID                  string      `json:"id"`
-		} `json:"marketplace_user_profile"`
-		IsActor string `json:"__isActor"`
-	} `json:"seller"`
-	EnergyEfficiencyClassEu interface{}    `json:"energy_efficiency_class_eu"`
-	ListingPhotos           []ProductImage `json:"listing_photos"`
+	MarketplaceListingTitle string              `json:"marketplace_listing_title"`
+	RedactedDescription     RedactedDescription `json:"redacted_description"`
+	LocationText            LocationText        `json:"location_text"`         // might be used later
+	PrimaryListingPhoto     ProductImage        `json:"primary_listing_photo"` // might be used later
+	Location                Location            `json:"location"`              // might be used later
+	ListingPhotos           []ProductImage      `json:"listing_photos"`
 }
 type Viewer struct {
 	MarketplaceProductDetailsPage MarketplaceProductDetailsPage `json:"marketplace_product_details_page"`
@@ -467,8 +250,7 @@ type MarketResult struct {
 }
 
 type BboxInner struct {
-	Complete bool         `json:"complete"`
-	Result   MarketResult `json:"result"`
+	Result MarketResult `json:"result"`
 }
 
 type MarketSchema struct {
