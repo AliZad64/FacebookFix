@@ -23,6 +23,7 @@ func GetMarketHandler(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
+	log.Println("the request is ", string(request))
 	marketData, err := GetMarket(c, string(request), marketID)
 	if err != nil {
 		log.Println("error2 ", err)
