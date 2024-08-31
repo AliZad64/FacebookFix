@@ -1,29 +1,13 @@
 package handlers
 
 type CometFeedStoryDefaultMessageRenderingStrategy struct {
-	TypeName string     `json:"__typename"`
-	Story    MediaStory `json:"story"`
+	Story MediaStory `json:"story"`
 }
 
 type MediaStory struct {
 	Message struct {
-		Ranges []struct {
-			Entity struct {
-				TypeName  string `json:"__typename"`
-				Name      string `json:"name"`
-				IsNode    string `json:"__isNode"`
-				ID        string `json:"id"`
-				IsEntity  string `json:"__isEntity"`
-				URL       string `json:"url"`
-				MobileURL string `json:"mobileUrl"`
-			} `json:"entity"`
-			EntityIsWeakReference bool `json:"entity_is_weak_reference"`
-			Length                int  `json:"length"`
-			Offset                int  `json:"offset"`
-		} `json:"ranges"`
 		Text string `json:"text"`
 	} `json:"message"`
-	ID string `json:"id"`
 }
 
 type CometFeedStoryActorPhotoStrategy struct {
@@ -62,30 +46,6 @@ type CometFeedStoryAudienceStrategy struct {
 	} `json:"__module_component_CometFeedStoryMetadataSection_story"`
 }
 
-type CometFeedStoryTitleWithActorStrategy struct {
-	TypeName             string `json:"__typename"`
-	IsICometStorySection string `json:"__isICometStorySection"`
-	IsProdEligible       bool   `json:"is_prod_eligible"`
-	Story                struct {
-		ID     string `json:"id"`
-		Actors []struct {
-			TypeName              string      `json:"__typename"`
-			Name                  string      `json:"name"`
-			ID                    string      `json:"id"`
-			IsActor               string      `json:"__isActor"`
-			IsEntity              string      `json:"__isEntity"`
-			URL                   string      `json:"url"`
-			WorkForeignEntityInfo interface{} `json:"work_foreign_entity_info"`
-			WorkInfo              interface{} `json:"work_info"`
-		} `json:"actors"`
-		Title         interface{} `json:"title"`
-		CometSections struct {
-			ActionLink interface{} `json:"action_link"`
-		} `json:"comet_sections"`
-		EncryptedTracking string `json:"encrypted_tracking"`
-	} `json:"story"`
-}
-
 type MediaStruct struct {
 	CometSections CometSections `json:"comet_sections"`
 }
@@ -99,35 +59,9 @@ type DisplayPicture struct {
 	Uri string `json:"uri"`
 }
 
-type PrivacyScope struct {
-	Description  string      `json:"description"`
-	Label        string      `json:"label"`
-	DisplayLabel interface{} `json:"display_label"`
-	IconImage    struct {
-		Height int    `json:"height"`
-		Scale  int    `json:"scale"`
-		Uri    string `json:"uri"`
-		Width  int    `json:"width"`
-	} `json:"icon_image"`
-	PrivacyScopeRenderer PrivacyScopeRenderer `json:"privacy_scope_renderer"`
-}
-
 type Feedback struct {
 	AssociatedGroup interface{} `json:"associated_group"`
 	ID              string      `json:"id"`
-}
-
-type Hashtag struct {
-	Offset int `json:"offset"`
-	Length int `json:"length"`
-	Entity struct {
-		Typename  string `json:"__typename"`
-		IsEntity  string `json:"__isEntity"`
-		MobileUrl string `json:"mobileUrl"`
-		Url       string `json:"url"`
-		ID        string `json:"id"`
-		IsNode    string `json:"__isNode"`
-	} `json:"entity"`
 }
 
 type ShortFormVideoContext struct {
@@ -167,25 +101,14 @@ type VideoOwner struct {
 	SubscribeStatus        string         `json:"subscribe_status"`
 	DelegatePage           DelegatePage   `json:"delegate_page"`
 }
-type Message struct {
-	Text              string        `json:"text"`
-	Ranges            []Hashtag     `json:"ranges"`
-	DelightRanges     []interface{} `json:"delight_ranges"`
-	ImageRanges       []interface{} `json:"image_ranges"`
-	InlineStyleRanges []interface{} `json:"inline_style_ranges"`
-	AggregatedRanges  []interface{} `json:"aggregated_ranges"`
-	ColorRanges       []interface{} `json:"color_ranges"`
-}
 
 type ReelMediaStruct struct {
 	ShortFormVideoContext  ShortFormVideoContext `json:"short_form_video_context"`
-	PrivacyScope           PrivacyScope          `json:"privacy_scope"`
 	PostID                 string                `json:"post_id"`
 	Tracking               string                `json:"tracking"`
 	CreationTime           int64                 `json:"creation_time"`
 	Feedback               Feedback              `json:"feedback"`
 	BrandedContentPostInfo interface{}           `json:"branded_content_post_info"`
-	Message                Message               `json:"message"`
 }
 
 type ProfilePicture struct {
@@ -201,88 +124,26 @@ type DelegatePage struct {
 }
 
 type Actor struct {
-	Typename                string         `json:"__typename"`
-	IsActor                 string         `json:"__isActor"`
-	ID                      string         `json:"id"`
-	IsEntity                string         `json:"__isEntity"`
-	URL                     string         `json:"url"`
-	ProfileURL              string         `json:"profile_url"`
-	Name                    string         `json:"name"`
-	ProfilePicture          ProfilePicture `json:"profile_picture"`
-	IsAdditionalProfilePlus bool           `json:"is_additional_profile_plus"`
-	DelegatePage            DelegatePage   `json:"delegate_page"`
+	Name string `json:"name"`
 }
 
 type Story struct {
-	Actors        []Actor            `json:"actors"`
-	CometSections StoryCometSections `json:"comet_sections"`
-	ID            string             `json:"id"`
+	Actors []Actor `json:"actors"`
 }
 
 type ActorPhoto struct {
-	Typename              string `json:"__typename"`
-	IsICometStorySection  string `json:"__isICometStorySection"`
-	IsProdEligible        bool   `json:"is_prod_eligible"`
-	Story                 Story  `json:"story"`
-	HasCommerceAttachment bool   `json:"has_commerce_attachment"`
-}
-
-type MetadataStory struct {
-	CreationTime int         `json:"creation_time"`
-	URL          string      `json:"url"`
-	GhlLabel     interface{} `json:"ghl_label"`
-	ID           string      `json:"id"`
-}
-
-type Metadata struct {
-	Typename             string        `json:"__typename"`
-	IsICometStorySection string        `json:"__isICometStorySection"`
-	IsProdEligible       bool          `json:"is_prod_eligible"`
-	Story                MetadataStory `json:"story"`
+	Story Story `json:"story"`
 }
 
 type CometSections struct {
 	Message struct {
 		CometFeedStoryDefaultMessageRenderingStrategy
 	} `json:"message"`
-	ActorPhoto ActorPhoto                           `json:"actor_photo"`
-	Metadata   []Metadata                           `json:"metadata"`
-	Title      CometFeedStoryTitleWithActorStrategy `json:"title"`
+	ActorPhoto ActorPhoto `json:"actor_photo"`
 }
 
-type StoryCometSections struct {
-	ActionLink interface{} `json:"action_link"`
-}
 type MessagePreferredBody struct {
-	Typename string `json:"__typename"`
-	Text     string `json:"text"`
-}
-
-type PrivacyScopeRenderer struct {
-	Typename                  string             `json:"__typename"`
-	IsPrivacySelectorRenderer string             `json:"__isPrivacySelectorRenderer"`
-	PrivacyRowInput           PrivacyRowInput    `json:"privacy_row_input"`
-	EntryPointRenderer        EntryPointRenderer `json:"entry_point_renderer"`
-	ID                        string             `json:"id"`
-}
-
-type PrivacyRowInput struct {
-	Allow             []interface{} `json:"allow"`
-	BaseState         string        `json:"base_state"`
-	Deny              []interface{} `json:"deny"`
-	PrivacyTargeting  interface{}   `json:"privacy_targeting"`
-	TagExpansionState string        `json:"tag_expansion_state"`
-}
-
-type EntryPointRenderer struct {
-	Typename string `json:"__typename"`
-	Source   Source `json:"source"`
-}
-
-type Source struct {
-	Typename string `json:"__typename"`
-	Scope    Scope  `json:"scope"`
-	ID       string `json:"id"`
+	Text string `json:"text"`
 }
 
 type Scope struct {
@@ -308,18 +169,8 @@ type PrefetchUri struct {
 
 type Data struct {
 	CurrMedia            CurrMedia            `json:"currMedia"`
-	IsMedia              string               `json:"__isMedia"`
-	AttachedComment      interface{}          `json:"attached_comment"`
-	Message              Message              `json:"message"`
 	MessagePreferredBody MessagePreferredBody `json:"message_preferred_body"`
-	ContainerStory       ContainerStory       `json:"container_story"`
 	CreationStory        CreationStory        `json:"creation_story"`
-	EncryptedTracking    string               `json:"encrypted_tracking"`
-	Actors               []Actor              `json:"actors"`
-	IsPlayable           bool                 `json:"is_playable"`
-	ID                   string               `json:"id"`
-	CreatedTime          int                  `json:"created_time"`
-	PrivacyScope         PrivacyScope         `json:"privacy_scope"`
 	Owner                Owner                `json:"owner"`
 }
 
@@ -327,7 +178,6 @@ type CurrMedia struct {
 	Typename             string           `json:"__typename"`
 	IsMedia              string           `json:"__isMedia"`
 	CanViewerEdit        bool             `json:"can_viewer_edit"`
-	ContainerStory       ContainerStory   `json:"container_story"`
 	ID                   string           `json:"id"`
 	PostID               string           `json:"post_id"`
 	EncryptedTracking    string           `json:"encrypted_tracking"`
@@ -346,19 +196,6 @@ type CurrMedia struct {
 	DefaultMediaSet      DefaultMediaSet  `json:"default_mediaset"`
 }
 
-type ContainerStory struct {
-	CanViewerBoost          bool                `json:"can_viewer_boost"`
-	BusinessContentType     string              `json:"business_content_type"`
-	LegacyStoryHideableID   string              `json:"legacy_story_hideable_id"`
-	DelegatePageID          string              `json:"delegate_page_id"`
-	PostHasInvalidTags      bool                `json:"post_has_invalid_tags"`
-	BoostPostButtonData     BoostPostButtonData `json:"boost_post_button_data"`
-	CanShowInlineBoost      bool                `json:"can_show_inline_boost_for_bizweb_feed_view"`
-	IsEligibleForLwiFeature bool                `json:"is_eligible_for_lwi_feature"`
-	ProfilePlusID           string              `json:"profile_plus_id"`
-	ID                      string              `json:"id"`
-}
-
 type CodedException struct {
 	Description string `json:"description"`
 	Summary     string `json:"summary"`
@@ -367,13 +204,6 @@ type CodedException struct {
 
 type AdsLwiPost struct {
 	Story Story `json:"story"`
-}
-
-type BoostPostButtonData struct {
-	ButtonLabel     string `json:"button_label"`
-	ButtonActionURI string `json:"button_action_uri"`
-	TooltipLabel    string `json:"tooltip_label"`
-	ButtonLabelType string `json:"button_label_type"`
 }
 
 type ClientViewConfig struct {
@@ -441,14 +271,7 @@ type Tags struct {
 }
 
 type CreationStory struct {
-	URL           string        `json:"url"`
-	Attachments   []Attachment  `json:"attachments"`
-	Tracking      string        `json:"tracking"`
 	CometSections CometSections `json:"comet_sections"`
-}
-
-type Attachment struct {
-	ActionLinks []interface{} `json:"action_links"`
 }
 
 type DefaultMediaSet struct {
@@ -476,27 +299,15 @@ type MediaNode struct {
 	IsNode     string `json:"__isNode"`
 }
 
-type Extensions struct {
-	PrefetchUrisV2 []PrefetchURI `json:"prefetch_uris_v2"`
-	IsFinal        bool          `json:"is_final"`
-}
-
-type PrefetchURI struct {
-	URI   string      `json:"uri"`
-	Label interface{} `json:"label"`
-}
-
 type PhotoStruct struct {
-	Data       Data       `json:"data"`
-	Extensions Extensions `json:"extensions"`
+	Data Data `json:"data"`
 }
 
 type Result struct {
-	Label          string     `json:"label"`
-	Path           []string   `json:"path"`
-	Data           Data       `json:"data"`
-	Extensions     Extensions `json:"extensions"`
-	SequenceNumber int        `json:"sequence_number"`
+	Label          string   `json:"label"`
+	Path           []string `json:"path"`
+	Data           Data     `json:"data"`
+	SequenceNumber int      `json:"sequence_number"`
 }
 
 type Bbox struct {
@@ -797,9 +608,8 @@ type MarketResult struct {
 }
 
 type BboxInner struct {
-	Complete   bool         `json:"complete"`
-	Result     MarketResult `json:"result"`
-	Extensions Extensions   `json:"extensions"`
+	Complete bool         `json:"complete"`
+	Result   MarketResult `json:"result"`
 }
 
 type MarketSchema struct {
