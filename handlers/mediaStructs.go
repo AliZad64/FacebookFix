@@ -171,29 +171,11 @@ type Data struct {
 	CurrMedia            CurrMedia            `json:"currMedia"`
 	MessagePreferredBody MessagePreferredBody `json:"message_preferred_body"`
 	CreationStory        CreationStory        `json:"creation_story"`
-	Owner                Owner                `json:"owner"`
 }
 
 type CurrMedia struct {
-	Typename             string           `json:"__typename"`
-	IsMedia              string           `json:"__isMedia"`
-	CanViewerEdit        bool             `json:"can_viewer_edit"`
-	ID                   string           `json:"id"`
-	PostID               string           `json:"post_id"`
-	EncryptedTracking    string           `json:"encrypted_tracking"`
-	ViewabilityConfig    []int            `json:"viewability_config"`
-	ClientViewConfig     ClientViewConfig `json:"client_view_config"`
-	Feedback             PhotoFeedBack    `json:"feedback"`
-	IsNode               string           `json:"__isNode"`
-	IsPlayable           bool             `json:"is_playable"`
-	CanViewerAddTags     bool             `json:"can_viewer_add_tags"`
-	Owner                Owner            `json:"owner"`
-	CreatedTime          int64            `json:"created_time"`
-	Image                Image            `json:"image"`
-	AccessibilityCaption string           `json:"accessibility_caption"`
-	Tags                 Tags             `json:"tags"`
-	CreationStory        CreationStory    `json:"creation_story"`
-	DefaultMediaSet      DefaultMediaSet  `json:"default_mediaset"`
+	Image         Image         `json:"image"`
+	CreationStory CreationStory `json:"creation_story"`
 }
 
 type CodedException struct {
@@ -206,97 +188,14 @@ type AdsLwiPost struct {
 	Story Story `json:"story"`
 }
 
-type ClientViewConfig struct {
-	CanDelayLogImpression bool `json:"can_delay_log_impression"`
-	UseBanzaiSignalImp    bool `json:"use_banzai_signal_imp"`
-	UseBanzaiVitalImp     bool `json:"use_banzai_vital_imp"`
-}
-
-type PhotoFeedBack struct {
-	ID                         string          `json:"id"`
-	CanViewerReact             bool            `json:"can_viewer_react"`
-	ViewerActor                interface{}     `json:"viewer_actor"`
-	ViewerFeedbackReactionInfo interface{}     `json:"viewer_feedback_reaction_info"`
-	AssociatedVideo            interface{}     `json:"associated_video"`
-	TopReactions               TopReactions    `json:"top_reactions"`
-	SupportedReactionInfos     []ReactionInfo  `json:"supported_reaction_infos"`
-	UnifiedReactors            UnifiedReactors `json:"unified_reactors"`
-	Reactors                   Reactors        `json:"reactors"`
-}
-
-type TopReactions struct {
-	Edges []ReactionEdge `json:"edges"`
-}
-
-type ReactionEdge struct {
-	ReactionCount int          `json:"reaction_count"`
-	Node          ReactionNode `json:"node"`
-}
-
-type ReactionNode struct {
-	ID string `json:"id"`
-}
-
-type ReactionInfo struct {
-	ID string `json:"id"`
-}
-
-type UnifiedReactors struct {
-	Count int `json:"count"`
-}
-
-type Reactors struct {
-	Count   int  `json:"count"`
-	IsEmpty bool `json:"is_empty"`
-}
-
-type Owner struct {
-	Typename                             string         `json:"__typename"`
-	ID                                   string         `json:"id"`
-	UserID                               string         `json:"user_id"`
-	AdditionalProfileHasTaggableProducts bool           `json:"additional_profile_has_taggable_products"`
-	Name                                 string         `json:"name"`
-	ProfilePicture                       ProfilePicture `json:"profile_picture"`
-	IsProfile                            string         `json:"__isProfile"`
-}
-
 type Image struct {
 	URI    string `json:"uri"`
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
 }
 
-type Tags struct {
-	Edges []interface{} `json:"edges"`
-}
-
 type CreationStory struct {
 	CometSections CometSections `json:"comet_sections"`
-}
-
-type DefaultMediaSet struct {
-	Typename   string     `json:"__typename"`
-	IsMediaSet string     `json:"__isMediaSet"`
-	PrevMedia  MediaEdges `json:"prevMedia"`
-	NextMedia  MediaEdges `json:"nextMedia"`
-	ID         string     `json:"id"`
-}
-
-type MediaEdges struct {
-	Edges []MediaEdge `json:"edges"`
-}
-
-type MediaEdge struct {
-	Node MediaNode `json:"node"`
-}
-
-type MediaNode struct {
-	Typename   string `json:"__typename"`
-	ID         string `json:"id"`
-	IsMedia    string `json:"__isMedia"`
-	IsPlayable bool   `json:"is_playable"`
-	Owner      Owner  `json:"owner"`
-	IsNode     string `json:"__isNode"`
 }
 
 type PhotoStruct struct {
@@ -304,15 +203,11 @@ type PhotoStruct struct {
 }
 
 type Result struct {
-	Label          string   `json:"label"`
-	Path           []string `json:"path"`
-	Data           Data     `json:"data"`
-	SequenceNumber int      `json:"sequence_number"`
+	Data Data `json:"data"`
 }
 
 type Bbox struct {
-	Complete bool   `json:"complete"`
-	Result   Result `json:"result"`
+	Result Result `json:"result"`
 }
 
 type PhotoMedia struct {
