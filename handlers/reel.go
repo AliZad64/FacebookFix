@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"facebookfix/constants"
+	"log"
 	"net/http"
 	"regexp"
 
@@ -15,12 +16,14 @@ func GetReelHandler(c *gin.Context) {
 
 	request, err := FacebookRequest(reelUrl)
 	if err != nil {
+		log.Println("error1 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
-
+	log.Println("the request is ", string(request))
 	data, err := GetReel(string(request))
 	if err != nil {
+		log.Println("error2 ", err)
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
