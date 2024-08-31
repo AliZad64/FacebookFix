@@ -9,7 +9,7 @@ const (
 	SecChUA                 = "\"Microsoft Edge\";v=\"111\", \"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"111\""
 	SecChUAFullVersionList  = "\"Microsoft Edge\";v=\"111.0.1661.62\", \"Not(A:Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"111.0.5563.149\""
 	SecChUAMobile           = "?0"
-	SecChUAPlatform         = "\"Windows\""
+	SecChUAPlatform         = "\"Linux\""
 	SecChUAPlatformVersion  = "\"15.0.0\""
 	SecFetchDest            = "document"
 	SecFetchMode            = "navigate"
