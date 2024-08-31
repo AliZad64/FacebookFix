@@ -1,5 +1,8 @@
 package handlers
 
+type VideoStruct struct {
+	VideoID string `json:"videoID"`
+}
 type CometFeedStoryDefaultMessageRenderingStrategy struct {
 	Story MediaStory `json:"story"`
 }

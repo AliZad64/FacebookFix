@@ -15,9 +15,7 @@ type VideoQueryParams struct {
 	V string `form:"v"`
 }
 
-type VideoStruct struct {
-	VideoID string `json:"videoID"`
-}
+
 
 func GetVideoHandler(c *gin.Context) {
 	id := c.Param("id")
