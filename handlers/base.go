@@ -43,7 +43,6 @@ func FacebookRequest(url string) ([]byte, error) {
 }
 
 func GetEmbedHandler(c *gin.Context) {
-	url := c.Request.URL.String()
 	param := c.Query("v")
 	videoTitle := fmt.Sprintf("/watch/%s", param)
 	if param == "" {
@@ -59,7 +58,7 @@ func GetEmbedHandler(c *gin.Context) {
 		Description: "",
 		Width:       "0",
 		Height:      "0",
-		Url:         url,
+		Url:         "",
 	}
 	c.HTML(http.StatusOK, constants.BaseTermplate, htmlData)
 }
