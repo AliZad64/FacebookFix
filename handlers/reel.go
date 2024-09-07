@@ -17,18 +17,18 @@ func GetReelHandler(c *gin.Context) {
 	request, err := FacebookRequest(reelUrl)
 	if err != nil {
 		log.Println("error1 ", err)
-		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
+		c.Redirect(http.StatusFound, "/")
 		return
 	}
 	log.Println("the request is ", string(request))
 	data, err := GetReel(string(request))
 	if err != nil {
 		log.Println("error2 ", err)
-		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
+		c.Redirect(http.StatusFound, "/")
 		return
 	}
-	data.Url = reelUrl
-	c.HTML(http.StatusOK, constants.BaseTermplate, data)
+	videoUrl := data.Video
+	c.Redirect(http.StatusFound, videoUrl)
 }
 
 func GetReel(html string) (HTMLData, error) {
