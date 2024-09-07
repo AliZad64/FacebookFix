@@ -3,11 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"facebookfix/constants"
-	"log"
 	"net/http"
 	"regexp"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 )
 
 type PhotoParams struct {
@@ -17,20 +17,20 @@ type PhotoParams struct {
 func GetPhotoHandler(c *gin.Context) {
 	var photoParams PhotoParams
 	if err := c.ShouldBindQuery(&photoParams); err != nil {
-		log.Println("error photo1 ", err)
+		log.Error().Err(err).Msg("error photo1")
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
 	photoUrl := constants.PhotoURL + photoParams.Fbid
 	request, err := FacebookRequest(photoUrl)
 	if err != nil {
-		log.Println("error photo2 ", err)
+		log.Error().Err(err).Msg("error photo2")
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
 	photo, err := GetPhoto(string(request))
 	if err != nil {
-		log.Println("error photo3 ", err)
+		log.Error().Err(err).Msg("error photo3")
 		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
 		return
 	}
@@ -43,13 +43,13 @@ func GetPhoto(request string) (HTMLData, error) {
 
 	photo, err := GetPhotoContent(string(request))
 	if err != nil {
-		log.Println("error photo4 ", err)
+		log.Error().Err(err).Msg("error photo4")
 		return HTMLData{}, err
 	}
 
 	media, err := GetPhotoMediaContent(string(request))
 	if err != nil {
-		log.Println("error photo5 ", err)
+		log.Error().Err(err).Msg("error photo5")
 		return HTMLData{}, err
 	}
 	actorName := "Facebook"
