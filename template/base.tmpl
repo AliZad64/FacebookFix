@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="#3b5998" name="theme-color" />
+    <meta equiv="Content-Type" content="text/html; charset=utf-8" />
+    {{ if .Card }}
+    <meta name="twitter:card" content="{{ .Card }}" />
+    {{ end }} {{ if .Title }}
+    <meta name="twitter:title" content="{{ .Title }}" />
+    {{ end }} {{ if .Image }}
+    <meta name="twitter:image" content="{{ .Image | unescapeHTML }}" />
+    <meta property="og:image" content="{{ .Image | unescapeHTML }}" />
+    {{ end }} {{ if .Video }}
+    <meta name="twitter:player:width" content="{{ .Width }}" />
+    <meta name="twitter:player:height" content="{{ .Height }}" />
+    <meta name="twitter:player:stream" content="{{ .Video | unescapeHTML }}" />
+    <meta name="twitter:player:stream:content_type" content="video/mp4" />
+    {{ end }}
+
+    <meta property="og:site_name" content="FacebookFix" />
+    <meta property="og:url" content="{{ .Url }}" />
+    <meta property="og:description" content="{{ .Description }}" />
+
+    {{ if .Video }}
+    <meta property="og:video" content="{{ .Video | unescapeHTML }}" />
+    <meta property="og:video:secure_url" content="{{ .Video | unescapeHTML }}" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="{{ .Width }}" />
+    <meta property="og:video:height" content="{{ .Height }}" />
+    {{ end }}
+
+    <meta name="description" content="{{ .Description }}" />
+    <meta http-equiv="refresh" content="0; url = {{ .Url }}" />
+  </head>
+
+  <body>
+    Redirecting you to the post in a moment. <a href="{{ .Url }}">Or click here.</a>
+  </body>
+</html>
