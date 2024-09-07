@@ -44,9 +44,10 @@ func main() {
 	//routes
 	router.GET("/", handlers.HomeHandler)
 	router.GET("/watch", handlers.GetEmbedHandler)
+	router.GET("/reel/:id", handlers.GetEmbedHandler)
 	router.GET("/watch/:id", handlers.GetVideoHandler)
 	router.GET("/:accountName/videos/:id", handlers.GetVideoHandler)
-	router.GET("/reel/:id", handlers.GetReelHandler)
+	router.GET(("/videos/:id"), handlers.GetReelHandler)
 	router.GET("/photo", handlers.GetPhotoHandler)
 	router.GET("/marketplace/item/:id", handlers.GetMarketHandler)
 
