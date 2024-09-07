@@ -21,7 +21,7 @@ func main() {
 	// Initialize zerolog
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	
+
 	unEscapeHTML := make(map[string]interface{})
 	unEscapeHTML["unescapeHTML"] = func(s string) template.HTML {
 		return template.HTML(s)
@@ -43,7 +43,8 @@ func main() {
 
 	//routes
 	router.GET("/", handlers.HomeHandler)
-	router.GET("/watch", handlers.GetVideoHandler)
+	router.GET("/watch", handlers.GetEmbedHandler)
+	router.GET("/watch/:id", handlers.GetVideoHandler)
 	router.GET("/:accountName/videos/:id", handlers.GetVideoHandler)
 	router.GET("/reel/:id", handlers.GetReelHandler)
 	router.GET("/photo", handlers.GetPhotoHandler)

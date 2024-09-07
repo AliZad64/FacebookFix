@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"facebookfix/constants"
 	"fmt"
-	"log"
 	"net/http"
 	"regexp"
 
@@ -15,13 +14,11 @@ type VideoQueryParams struct {
 	V string `form:"v"`
 }
 
-
-
 func GetVideoHandler(c *gin.Context) {
 	id := c.Param("id")
 	var queryParam VideoQueryParams
 	if err := c.ShouldBindQuery(&queryParam); err != nil {
-		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
+		c.Error(err)
 		return
 	}
 	var videoUrl string
@@ -37,18 +34,18 @@ func GetVideoHandler(c *gin.Context) {
 	}
 	request, err := FacebookRequest(videoUrl)
 	if err != nil {
-		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
+		c.Error(err)
 		return
 	}
 
 	data, err := GetVideo(string(request))
 	if err != nil {
-		c.HTML(http.StatusBadRequest, constants.BaseTermplate, nil)
+		c.Error(err)
 		return
 	}
-	data.Url = videoUrl
-	log.Println(data.Url)
-	c.HTML(http.StatusOK, "base.tmpl", data)
+	videoUrl = data.Video
+	c.Redirect(http.StatusFound, videoUrl)
+
 }
 
 func GetVideo(request string) (HTMLData, error) {
