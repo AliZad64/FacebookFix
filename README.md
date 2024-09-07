@@ -2,7 +2,7 @@
 
 FacebookFix serves fixed Facebook video embeds on **Discord**. Inspired by [ddinstagram.com](https://github.com/Wikidepia/InstaFix) and [fxtwitter.com](https://github.com/robinuniverse/TwitFix).
 
-## Deploy InstaFix yourself (locally)
+## Deploy FacebookFix yourself (locally)
 
 1. Clone the repository.
 2. Install [Go](https://golang.org/doc/install).
