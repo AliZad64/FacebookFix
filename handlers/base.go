@@ -1,9 +1,13 @@
 package handlers
 
 import (
+	"facebookfix/constants"
 	"facebookfix/engine"
+	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type HTMLData struct {
@@ -36,4 +40,21 @@ func FacebookRequest(url string) ([]byte, error) {
 		return nil, err
 	}
 	return request, nil
+}
+
+func GetEmbedHandler(c *gin.Context) {
+	url := c.Request.URL.String()
+	queryParam := c.Query("v")
+	videoTitle := fmt.Sprintf("/watch/%s", queryParam)
+	htmlData := HTMLData{
+		Title:       "Facebook",
+		Image:       "",
+		Video:       videoTitle,
+		Card:        "summary_large_image",
+		Description: "",
+		Width:       "0",
+		Height:      "0",
+		Url:         url,
+	}
+	c.HTML(http.StatusOK, constants.BaseTermplate, htmlData)
 }
