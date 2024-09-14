@@ -18,6 +18,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	engine.InitRedis()
 	// Initialize zerolog
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
