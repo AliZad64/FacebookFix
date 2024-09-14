@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 )
 
 func GetVideoDataHandler(ctx *gin.Context) {
@@ -14,6 +15,7 @@ func GetVideoDataHandler(ctx *gin.Context) {
 		ctx.Error(fmt.Errorf("no video id found"))
 		return
 	}
+	log.Info().Msgf("test endpoint and video id: %s", param)
 
 	key := fmt.Sprintf("video:%s", param)
 	videoURL, err := engine.GetRedisContent(ctx, key)
