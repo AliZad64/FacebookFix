@@ -3,6 +3,8 @@ package handlers
 import (
 	"encoding/json"
 	"facebookfix/constants"
+	"facebookfix/engine"
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -14,21 +16,30 @@ func GetReelHandler(c *gin.Context) {
 	id := c.Param("id")
 	reelUrl := constants.ReelURL + id
 
+	videoTitle := fmt.Sprintf("/vid/%s", id)
+
 	request, err := FacebookRequest(reelUrl)
 	if err != nil {
 		log.Println("error1 ", err)
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
-	log.Println("the request is ", string(request))
+
 	data, err := GetReel(string(request))
 	if err != nil {
 		log.Println("error2 ", err)
 		c.Redirect(http.StatusFound, "/")
 		return
 	}
-	videoUrl := data.Video
-	c.Redirect(http.StatusFound, videoUrl)
+	key := fmt.Sprintf("video:%s", id)
+	err = engine.SetRedisContent(c, key, data.Video)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+
+	data.Video = videoTitle
+	c.HTML(http.StatusOK, constants.BaseTermplate, data)
 }
 
 func GetReel(html string) (HTMLData, error) {
