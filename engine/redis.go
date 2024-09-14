@@ -30,11 +30,6 @@ func InitRedis() {
 		log.Fatal(err)
 		return
 	}
-	err = RDB.ConfigSet(ctx, "notify-keyspace-events", "KEx").Err()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
 	log.Printf("connected to redis at %s", redisHost)
 }
 
