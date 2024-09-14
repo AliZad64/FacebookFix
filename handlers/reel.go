@@ -46,8 +46,8 @@ func GetReel(html string) (HTMLData, error) {
 		Card:        "player",
 		Description: "Reel",
 		Video:       reelStruct.VideoID,
-		Width:       "640",
-		Height:      "360",
+		Width:       "0",
+		Height:      "0",
 	}
 
 	return data, nil

@@ -64,8 +64,8 @@ func GetVideo(request string) (HTMLData, error) {
 		Card:        "player",
 		Description: mediaStruct.CometSections.Message.Story.Message.Text,
 		Video:       videoStruct.VideoID,
-		Width:       "640",
-		Height:      "360",
+		Width:       "0",
+		Height:      "0",
 	}
 
 	return data, nil
