@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"facebookfix/constants"
+	"facebookfix/engine"
 	"fmt"
 	"net/http"
 	"regexp"
@@ -15,23 +16,18 @@ type VideoQueryParams struct {
 }
 
 func GetVideoHandler(c *gin.Context) {
-	id := c.Param("id")
-	var queryParam VideoQueryParams
-	if err := c.ShouldBindQuery(&queryParam); err != nil {
-		c.Error(err)
-		return
-	}
-	var videoUrl string
-	if len(queryParam.V) > 0 {
-		videoUrl = constants.VideoURL + queryParam.V
-	}
-	if len(id) > 0 {
-		videoUrl = constants.VideoURL + id
+	param := c.Query("v")
+	if param == "" {
+		param = c.Param("id")
 	}
 
-	if len(queryParam.V) == 0 {
-		videoUrl = constants.VideoURL + id
+	videoTitle := fmt.Sprintf("/vid/%s", param)
+
+	if len(param) == 0 {
+		c.Error(fmt.Errorf("no video id found"))
+		return
 	}
+	videoUrl := constants.VideoURL + param
 	request, err := FacebookRequest(videoUrl)
 	if err != nil {
 		c.Error(err)
@@ -43,8 +39,14 @@ func GetVideoHandler(c *gin.Context) {
 		c.Error(err)
 		return
 	}
-	videoUrl = data.Video
-	c.Redirect(http.StatusFound, videoUrl)
+	key := fmt.Sprintf("video:%s", param)
+	err = engine.SetRedisContent(c, key, data.Video)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	data.Video = videoTitle
+	c.HTML(http.StatusOK, constants.BaseTermplate, data)
 
 }
 
