@@ -5,7 +5,9 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -34,4 +36,14 @@ func InitRedis() {
 		return
 	}
 	log.Printf("connected to redis at %s", redisHost)
+}
+
+func SetRedisContent(ctx *gin.Context, key, value string) error {
+	err := RDB.Set(ctx, key, value, 7*time.Hour).Err()
+	return err
+}
+
+func GetRedisContent(ctx *gin.Context, key string) (string, error) {
+	val, err := RDB.Get(ctx, key).Result()
+	return val, err
 }
