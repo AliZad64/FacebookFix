@@ -30,7 +30,7 @@ func InitRedis() {
 		log.Fatal(err)
 		return
 	}
-	log.Printf("connected to redis at %s", redisHost)
+	log.Printf("connected to redis")
 }
 
 func SetRedisContent(ctx *gin.Context, key, value string) error {
